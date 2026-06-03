@@ -80,5 +80,18 @@ public class Envio {
         return "Envio " + this.getNumero();
     }
     
+    public void confirmarRecepcion(ArrayList<Paquete> entregados){
+        int i = 0;
+        while(i < this.getPaquetes().size()) {
+            Paquete p = this.getPaquetes().get(i);
+            if(entregados.contains(p)){
+                p.setEstado("RECIBIDO");
+            } else{
+                p.setEstado("PENDIENTE");
+            }
+            i = i + 1;
+        }
+        this.setRecepcionRegistrada(true);
+    }
     
 }

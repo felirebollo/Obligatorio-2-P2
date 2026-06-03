@@ -93,13 +93,15 @@ public class Sistema {
     
     public Cliente buscarCliente(String correo) {
         Cliente clienteBuscado = null;
+        boolean encontrado = false;
         int i = 0;
 
-        while (i < this.getClientes().size() && clienteBuscado == null) {
+        while (i < this.getClientes().size() && !encontrado) {
             Cliente cliente = this.getClientes().get(i);
 
             if (cliente.getCorreo().equals(correo)) {
                 clienteBuscado = cliente;
+                encontrado = true;
             }
 
             i = i + 1;
@@ -110,16 +112,18 @@ public class Sistema {
     
     public Funcionario buscarFuncionario(int numeroFuncionario) {
         Funcionario funcionarioBuscado = null;
+        boolean encontrado = false;
         int i = 0;
 
-        while (i < this.getFuncionarios().size() && funcionarioBuscado == null) {
+        while (i < this.getFuncionarios().size() && !encontrado) {
 
             Funcionario funcionario = this.getFuncionarios().get(i);
 
             if (funcionario.getNumeroFuncionario() == numeroFuncionario) {
                 funcionarioBuscado = funcionario;
+                encontrado = true;
             }
-
+            
             i = i + 1;
         }
 
@@ -128,14 +132,16 @@ public class Sistema {
     
     public Paquete buscarPaquete(String identificador) {
         Paquete paqueteBuscado = null;
+        boolean encontrado = false;
         int i = 0;
 
-        while (i < this.getPaquetes().size() && paqueteBuscado == null) {
+        while (i < this.getPaquetes().size() && !encontrado) {
 
             Paquete paquete = this.getPaquetes().get(i);
 
             if (paquete.getIdentificador().equals(identificador)) {
                 paqueteBuscado = paquete;
+                encontrado = true;
             }
 
             i = i + 1;
@@ -160,6 +166,50 @@ public class Sistema {
         }
 
         return tarifaBuscada;
+    }
+    
+    public Envio buscarEnvio(int numero) {
+        Envio envioBuscado = null;
+        boolean encontrado = false;
+        int i = 0;
+    
+        while (i < this.getEnvios().size() && !encontrado) {
+            Envio envio = this.getEnvios().get(i);
+            if (envio.getNumero() == numero) {
+                envioBuscado = envio;
+                encontrado = true;
+            }
+            i = i + 1;
+            }
+        return envioBuscado;
+    }  
+
+    public int calcularPrecio(String zona, int pesoGramo){
+        Tarifa tarifa = null;
+        int precio = 0;
+        if(pesoGramo < 1000) {
+            precio = tarifa.getPrecioCategoria1();
+        } else if(pesoGramo < 5000) {
+            precio = tarifa.getPrecioCategoria2();
+        } else if(pesoGramo < 10000) {
+            precio = tarifa.getPrecioCategoria3();
+        } else{
+            precio = tarifa.getPrecioCategoria4();
+        }
+        return precio;
+    }
+    
+    public boolean existeNombre(String nombre) {
+        boolean existe = false;
+        int i = 0;
+        
+        while(i < this.getClientes().size() && !existe) {
+            if(this.getClientes().get(i).getNombre().equals(nombre)) {
+                existe = true;
+            }
+            i = i+1;
+        }
+        return existe;
     }
     
     
