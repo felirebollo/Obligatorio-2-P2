@@ -4,21 +4,23 @@
  */
 package dominio;
 
+import java.io.Serializable;
+
 /**
  *
  * @author felipe
  */
-public class Funcionario extends Persona {
+public class Funcionario extends Persona implements Serializable{
 
     private int numeroFuncionario;
-    private int anioIngreso;
+    private int añoIngreso;
 
 
-    public Funcionario(String nombre, String celular, int numeroFuncionario, int anioIngreso) {
+    public Funcionario(String nombre, String celular, int numeroFuncionario, int añoIngreso) {
 
         super(nombre, celular);
         this.setNumeroFuncionario(numeroFuncionario);
-        this.setAnioIngreso(anioIngreso);
+        this.setAñoIngreso(añoIngreso);
     }
 
     public int getNumeroFuncionario() {
@@ -29,12 +31,12 @@ public class Funcionario extends Persona {
         this.numeroFuncionario = numeroFuncionario;
     }
 
-    public int getAnioIngreso() {
-        return anioIngreso;
+    public int getAñoIngreso() {
+        return añoIngreso;
     }
 
-    public void setAnioIngreso(int anioIngreso) {
-        this.anioIngreso = anioIngreso;
+    public void setAñoIngreso(int anioIngreso) {
+        this.añoIngreso = anioIngreso;
     }
 
     @Override
