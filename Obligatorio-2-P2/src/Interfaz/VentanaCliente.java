@@ -4,19 +4,27 @@
  */
 package Interfaz;
 
+import dominio.Cliente;
+import dominio.Sistema;
+import javax.swing.JOptionPane;
+import java.util.Collections;
+import java.util.Comparator;
+
 /**
  *
  * @author felipe
  */
 public class VentanaCliente extends javax.swing.JFrame {
     
+    private Sistema sistema;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaCliente.class.getName());
 
     /**
      * Creates new form VentanaCliente
      */
-    public VentanaCliente() {
+    public VentanaCliente(Sistema unSistema) {
         initComponents();
+        this.sistema = unSistema;  
     }
 
     /**
@@ -28,47 +36,279 @@ public class VentanaCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        btnVentanaClienteNombre = new javax.swing.JLabel();
+        btnVentanaClienteCelular = new javax.swing.JLabel();
+        btnVentanaClienteCorreo = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        txtCelular = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        VentanaClienteLista = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstCliente = new javax.swing.JList<>();
+        btnVentanaClienteAgregar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        btnVolver = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        btnVentanaClienteNombre.setText("Nombre:");
+
+        btnVentanaClienteCelular.setText("Celular:");
+
+        btnVentanaClienteCorreo.setText("Correo");
+
+        txtNombre.addActionListener(this::txtNombreActionPerformed);
+
+        txtCelular.addActionListener(this::txtCelularActionPerformed);
+
+        txtCorreo.addActionListener(this::txtCorreoActionPerformed);
+
+        VentanaClienteLista.setText("Lista:");
+
+        lstCliente.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        lstCliente.addListSelectionListener(this::lstClienteValueChanged);
+        jScrollPane1.setViewportView(lstCliente);
+
+        btnVentanaClienteAgregar.setText("Agegar");
+        btnVentanaClienteAgregar.addActionListener(this::btnVentanaClienteAgregarActionPerformed);
+
+        jPanel1.setLayout(null);
+
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(this::btnVolverActionPerformed);
+
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(this::btnModificarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(104, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnVolver)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(147, 147, 147)
+                                .addComponent(btnModificar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnVentanaClienteAgregar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnVentanaClienteCelular, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnVentanaClienteNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnVentanaClienteCorreo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(VentanaClienteLista)
+                                        .addGap(29, 29, 29)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNombre)
+                                    .addComponent(txtCelular)
+                                    .addComponent(txtCorreo)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(98, 98, 98)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnVentanaClienteNombre))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnVentanaClienteCelular))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnVentanaClienteCorreo))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnVentanaClienteAgregar)
+                            .addComponent(btnModificar))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(VentanaClienteLista))
+                .addGap(29, 29, 29)
+                .addComponent(btnVolver)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    private void txtCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCelularActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCelularActionPerformed
+
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCorreoActionPerformed
+
+    private void btnVentanaClienteAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentanaClienteAgregarActionPerformed
+        String nombre = txtNombre.getText();
+        String celular = txtCelular.getText();
+        String correo = txtCorreo.getText();
+
+        if (!this.sistema.correoValido(correo)) {
+            JOptionPane.showMessageDialog(this, "Correo inválido");
+        } else {
+            Cliente clienteExistente = this.sistema.buscarCliente(correo);
+
+            if (!this.sistema.existeNombre(nombre) && clienteExistente == null) {
+
+                Cliente cliente = new Cliente(nombre, celular, correo);
+                this.sistema.agregarCliente(cliente);
+                cargarLista();
+
+                txtNombre.setText("");
+                txtCelular.setText("");
+                txtCorreo.setText("");
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Ya existe un cliente con ese nombre o correo");
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_btnVentanaClienteAgregarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VentanaCliente().setVisible(true));
-    }
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
 
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void lstClienteValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClienteValueChanged
+        String nombreSeleccionado = lstCliente.getSelectedValue();
+        
+        boolean encontrado = false;
+        int i = 0;
+
+        while (i < this.sistema.getClientes().size() && !encontrado) {
+
+            Cliente cliente = this.sistema.getClientes().get(i);
+
+            if (cliente.getNombre().equals(nombreSeleccionado)) {
+
+                txtNombre.setText(cliente.getNombre());
+                txtCelular.setText(cliente.getCelular());
+                txtCorreo.setText(cliente.getCorreo());
+
+                encontrado = true;
+            }
+
+            i = i + 1;
+        }
+    }//GEN-LAST:event_lstClienteValueChanged
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+
+        String nombreSeleccionado = lstCliente.getSelectedValue();
+
+        if (nombreSeleccionado != null) {
+
+            String nombreNuevo = txtNombre.getText();
+
+            int i = 0;
+            boolean encontrado = false;
+
+            while (i < this.sistema.getClientes().size() && !encontrado) {
+
+                Cliente cliente = this.sistema.getClientes().get(i);
+
+                if (cliente.getNombre().equals(nombreSeleccionado)) {
+
+                    if (!this.sistema.existeNombreDistinto(nombreNuevo, nombreSeleccionado)) {
+
+                        cliente.setNombre(nombreNuevo);
+                        cliente.setCelular(txtCelular.getText());
+                        cliente.setCorreo(txtCorreo.getText());
+
+                        encontrado = true;
+
+                    } else {
+
+                        JOptionPane.showMessageDialog(this, "Ya existe una persona con ese nombre");
+                    }
+                }
+
+                i = i + 1;
+            }
+
+            cargarLista();
+
+            txtNombre.setText("");
+            txtCelular.setText("");
+            txtCorreo.setText("");
+
+            lstCliente.clearSelection();
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel VentanaClienteLista;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnVentanaClienteAgregar;
+    private javax.swing.JLabel btnVentanaClienteCelular;
+    private javax.swing.JLabel btnVentanaClienteCorreo;
+    private javax.swing.JLabel btnVentanaClienteNombre;
+    private javax.swing.JButton btnVolver;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> lstCliente;
+    private javax.swing.JTextField txtCelular;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+
+    public void cargarLista() {
+        //Para ordenar por nombre creciente - Revisar
+        Collections.sort(this.sistema.getClientes(), Comparator.comparing(Cliente::getNombre));
+        
+        String[] clientes = new String[this.sistema.getClientes().size()];
+        int i = 0;
+
+        while (i < this.sistema.getClientes().size()) {
+            clientes[i] = this.sistema.getClientes().get(i).toString();
+            i = i + 1;
+        }
+
+        lstCliente.setListData(clientes);
+    }
+   
+
 }
+
