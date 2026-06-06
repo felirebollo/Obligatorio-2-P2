@@ -4,13 +4,14 @@
  */
 package dominio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author felipe
- */
-public class Envio {
+ */ 
+public class Envio implements Serializable {
     private int numero;
     private String fecha;
     private String zona;
