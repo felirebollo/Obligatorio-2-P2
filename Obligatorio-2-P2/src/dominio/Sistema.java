@@ -4,13 +4,14 @@
  */
 package dominio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author felipe
  */
-public class Sistema {
+public class Sistema implements Serializable {
 
     private ArrayList<Cliente> clientes;
     private ArrayList<Funcionario> funcionarios;
@@ -26,6 +27,14 @@ public class Sistema {
         this.setEnvios(envios);
         this.setTarifas(tarifas);
     }
+    
+    public Sistema() {
+    this.setClientes(new ArrayList<Cliente>());
+    this.setFuncionarios(new ArrayList<Funcionario>());
+    this.setPaquetes(new ArrayList<Paquete>());
+    this.setEnvios(new ArrayList<Envio>());
+    this.setTarifas(new ArrayList<Tarifa>());
+}
 
     public ArrayList<Cliente> getClientes() {
         return clientes;
@@ -185,16 +194,22 @@ public class Sistema {
     }  
 
     public int calcularPrecio(String zona, int pesoGramo){
-        Tarifa tarifa = null;
+        Tarifa tarifa = this.buscarTarifa(zona);
         int precio = 0;
-        if(pesoGramo < 1000) {
+        if (tarifa != null) {
+        if (pesoGramo < 1000) {
             precio = tarifa.getPrecioCategoria1();
-        } else if(pesoGramo < 5000) {
-            precio = tarifa.getPrecioCategoria2();
-        } else if(pesoGramo < 10000) {
-            precio = tarifa.getPrecioCategoria3();
-        } else{
-            precio = tarifa.getPrecioCategoria4();
+        } else {
+            if (pesoGramo < 5000) {
+                precio = tarifa.getPrecioCategoria2();
+            } else {
+                if (pesoGramo < 10000) {
+                    precio = tarifa.getPrecioCategoria3();
+                } else {
+                    precio = tarifa.getPrecioCategoria4();
+                    }
+                }
+            }
         }
         return precio;
     }
@@ -202,17 +217,70 @@ public class Sistema {
     public boolean existeNombre(String nombre) {
         boolean existe = false;
         int i = 0;
-        
-        while(i < this.getClientes().size() && !existe) {
-            if(this.getClientes().get(i).getNombre().equals(nombre)) {
+        while (i < this.getClientes().size() && !existe) {
+
+            if (this.getClientes().get(i).getNombre().equals(nombre)) {
                 existe = true;
             }
-            i = i+1;
+            i = i + 1;
+        }
+
+        i = 0;
+        while (i < this.getFuncionarios().size() && !existe) {
+            if (this.getFuncionarios().get(i).getNombre().equals(nombre)) {
+                existe = true;
+            }
+            i = i + 1;
         }
         return existe;
     }
     
+    public boolean correoValido(String correo) {
+
+        boolean valido = false;
+
+        if (correo.contains("@") && correo.contains(".")) {
+            valido = true;
+        }
+
+        return valido;
+    }
     
-    
+    public boolean existeNombreDistinto(String nombre, String nombreOriginal) {
+
+        boolean existe = false;
+        int i = 0;
+
+        while (i < this.getClientes().size() && !existe) {
+
+            Cliente cliente = this.getClientes().get(i);
+
+            if (cliente.getNombre().equals(nombre)
+                    && !cliente.getNombre().equals(nombreOriginal)) {
+
+                existe = true;
+            }
+
+            i = i + 1;
+        }
+
+        i = 0;
+
+        while (i < this.getFuncionarios().size() && !existe) {
+
+            Funcionario funcionario = this.getFuncionarios().get(i);
+
+            if (funcionario.getNombre().equals(nombre)
+                    && !funcionario.getNombre().equals(nombreOriginal)) {
+
+                existe = true;
+            }
+
+            i = i + 1;
+        }
+
+        return existe;
+    }
+
     
 }
