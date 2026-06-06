@@ -4,7 +4,11 @@
  */
 package Interfaz;
 
+import dominio.Funcionario;
 import dominio.Sistema;
+import javax.swing.JOptionPane;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
@@ -46,8 +50,10 @@ public class VentanaFuncionario extends javax.swing.JFrame {
         btnNumFuncionario1 = new javax.swing.JLabel();
         txtCorreo1 = new javax.swing.JTextField();
         txtAños = new javax.swing.JTextField();
+        btnVolver = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnNombre.setText("Nombre:");
 
@@ -73,6 +79,7 @@ public class VentanaFuncionario extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        lstFuncionario.addListSelectionListener(this::lstFuncionarioValueChanged);
         jScrollPane1.setViewportView(lstFuncionario);
 
         btnNumFuncionario1.setText("años ingresados:");
@@ -81,40 +88,53 @@ public class VentanaFuncionario extends javax.swing.JFrame {
 
         txtAños.addActionListener(this::txtAñosActionPerformed);
 
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(this::btnVolverActionPerformed);
+
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(this::btnModificarActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
+                .addGap(121, 121, 121)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAgregar)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(92, 92, 92)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtCelular, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                                .addComponent(txtNombre)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(2, 2, 2)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnNumFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtNumFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(VentanaClienteLista)
-                                    .addGap(52, 52, 52)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnNumFuncionario1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtAños, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(144, Short.MAX_VALUE))
+                    .addComponent(btnVolver)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(92, 92, 92)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtCelular)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(2, 2, 2)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnNumFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtNumFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(VentanaClienteLista)
+                                        .addGap(52, 52, 52)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnNumFuncionario1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(btnModificar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btnAgregar))
+                                            .addComponent(txtAños, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGap(6, 6, 6)))
+                .addContainerGap(135, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(289, Short.MAX_VALUE)
@@ -124,7 +144,7 @@ public class VentanaFuncionario extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(68, 68, 68)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -146,12 +166,16 @@ public class VentanaFuncionario extends javax.swing.JFrame {
                     .addComponent(btnNumFuncionario1)
                     .addComponent(txtAños, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
-                .addComponent(btnAgregar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnModificar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(VentanaClienteLista)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+                .addGap(18, 18, 18)
+                .addComponent(btnVolver)
+                .addGap(22, 22, 22))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(159, 159, 159)
@@ -171,7 +195,24 @@ public class VentanaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCelularActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        String nombre = txtNombre.getText();
+        String celular = txtCelular.getText();
+
+        int numeroFuncionario = Integer.parseInt(txtNumFuncionario.getText());
+        int añoIngreso = Integer.parseInt(txtAños.getText());
         
+        if (!this.sistema.existeNombre(nombre)) {
+
+            Funcionario funcionario = new Funcionario(nombre, celular, numeroFuncionario, añoIngreso);
+            this.sistema.agregarFuncionario(funcionario);
+            cargarLista();
+            txtNombre.setText("");
+            txtCelular.setText("");
+            txtNumFuncionario.setText("");
+            txtAños.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Ya existe una persona con ese nombre");
+        }   
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void txtNumFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumFuncionarioActionPerformed
@@ -186,14 +227,97 @@ public class VentanaFuncionario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAñosActionPerformed
 
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void lstFuncionarioValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstFuncionarioValueChanged
+        String nombreSeleccionado = lstFuncionario.getSelectedValue();
+
+        if (nombreSeleccionado != null) {
+
+            int i = 0;
+            Funcionario funcionario = null;
+
+            while (i < this.sistema.getFuncionarios().size() && funcionario == null) {
+
+                Funcionario aux = this.sistema.getFuncionarios().get(i);
+
+                if (aux.getNombre().equals(nombreSeleccionado)) {
+                    funcionario = aux;
+                }
+
+                i = i + 1;
+            }
+
+            if (funcionario != null) {
+
+                txtNombre.setText(funcionario.getNombre());
+                txtCelular.setText(funcionario.getCelular());
+                txtNumFuncionario.setText(String.valueOf(funcionario.getNumeroFuncionario()));
+                txtAños.setText(String.valueOf(funcionario.getAñoIngreso()));
+            }
+        }
+    }//GEN-LAST:event_lstFuncionarioValueChanged
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+
+        String nombreSeleccionado = lstFuncionario.getSelectedValue();
+
+        if (nombreSeleccionado != null) {
+
+            String nombreNuevo = txtNombre.getText();
+
+            boolean encontrado = false;
+            int i = 0;
+
+            while (i < this.sistema.getFuncionarios().size() && !encontrado) {
+
+                Funcionario funcionario = this.sistema.getFuncionarios().get(i);
+
+                if (funcionario.getNombre().equals(nombreSeleccionado)) {
+
+                    if (!this.sistema.existeNombreDistinto(nombreNuevo,
+                            nombreSeleccionado)) {
+
+                        funcionario.setNombre(nombreNuevo);
+                        funcionario.setCelular(txtCelular.getText());
+                        funcionario.setNumeroFuncionario(Integer.parseInt(txtNumFuncionario.getText()));
+                        funcionario.setAñoIngreso(Integer.parseInt(txtAños.getText()));
+
+                        encontrado = true;
+
+                    } else {
+
+                        JOptionPane.showMessageDialog(this,"Ya existe una persona con ese nombre");
+                    }
+                }
+
+                i = i + 1;
+            }
+
+            cargarLista();
+
+            txtNombre.setText("");
+            txtCelular.setText("");
+            txtNumFuncionario.setText("");
+            txtAños.setText("");
+
+            lstFuncionario.clearSelection();
+        }
+
+    }//GEN-LAST:event_btnModificarActionPerformed
+
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel VentanaClienteLista;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JLabel btnCelular;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JLabel btnNombre;
     private javax.swing.JLabel btnNumFuncionario;
     private javax.swing.JLabel btnNumFuncionario1;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> lstFuncionario;
@@ -203,4 +327,24 @@ public class VentanaFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumFuncionario;
     // End of variables declaration//GEN-END:variables
+    public void cargarLista() {
+
+        //sirve para ordenar por Años, lo saque de chatGPT - Revisar
+        Collections.sort(this.sistema.getFuncionarios(),
+            Comparator.comparingInt(Funcionario::getAñoIngreso).reversed());
+        
+        String[] funcionarios = new String[this.sistema.getFuncionarios().size()];
+
+        int i = 0;
+
+        while (i < this.sistema.getFuncionarios().size()) {
+
+            funcionarios[i] = this.sistema.getFuncionarios().get(i).toString();
+
+            i = i + 1;
+        }
+
+        lstFuncionario.setListData(funcionarios);
+    }   
+
 }
