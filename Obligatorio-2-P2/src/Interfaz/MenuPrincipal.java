@@ -4,19 +4,23 @@
  */
 package Interfaz;
 
+import dominio.Sistema;
+
 /**
  *
  * @author felipe
  */
 public class MenuPrincipal extends javax.swing.JFrame {
     
+    private Sistema sistema;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuPrincipal.class.getName());
 
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal() {
+    public MenuPrincipal(Sistema unSistema) {
         initComponents();
+        this.sistema = unSistema;
     }
 
     /**
@@ -28,47 +32,100 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnFuncionario = new javax.swing.JButton();
+        btnCliente = new javax.swing.JButton();
+        btnPaquetes = new javax.swing.JButton();
+        btnConsultas = new javax.swing.JButton();
+        btnRecepcion = new javax.swing.JButton();
+        btnMenuPrincipalSalir = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnFuncionario.setText("Funcionario");
+        btnFuncionario.addActionListener(this::btnFuncionarioActionPerformed);
+
+        btnCliente.setText("Cliente");
+        btnCliente.addActionListener(this::btnClienteActionPerformed);
+
+        btnPaquetes.setText("Paquetes");
+        btnPaquetes.addActionListener(this::btnPaquetesActionPerformed);
+
+        btnConsultas.setText("Consultas");
+        btnConsultas.addActionListener(this::btnConsultasActionPerformed);
+
+        btnRecepcion.setText("Recepcion");
+        btnRecepcion.addActionListener(this::btnRecepcionActionPerformed);
+
+        btnMenuPrincipalSalir.setText("Salir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnRecepcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnPaquetes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnConsultas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(268, 268, 268))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnMenuPrincipalSalir)
+                        .addGap(25, 25, 25))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(btnCliente)
+                .addGap(18, 18, 18)
+                .addComponent(btnFuncionario)
+                .addGap(18, 18, 18)
+                .addComponent(btnRecepcion)
+                .addGap(18, 18, 18)
+                .addComponent(btnPaquetes)
+                .addGap(18, 18, 18)
+                .addComponent(btnConsultas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnMenuPrincipalSalir)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
+        VentanaFuncionario ventana = new VentanaFuncionario(this.sistema);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnFuncionarioActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MenuPrincipal().setVisible(true));
-    }
+    private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
+        VentanaCliente ventana = new VentanaCliente(this.sistema);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnClienteActionPerformed
+
+    private void btnPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaquetesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPaquetesActionPerformed
+
+    private void btnConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsultasActionPerformed
+
+    private void btnRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRecepcionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCliente;
+    private javax.swing.JButton btnConsultas;
+    private javax.swing.JButton btnFuncionario;
+    private javax.swing.JButton btnMenuPrincipalSalir;
+    private javax.swing.JButton btnPaquetes;
+    private javax.swing.JButton btnRecepcion;
     // End of variables declaration//GEN-END:variables
 }
