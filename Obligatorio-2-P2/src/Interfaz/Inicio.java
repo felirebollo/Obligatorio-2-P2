@@ -4,6 +4,8 @@
  */
 package Interfaz;
 
+import dominio.Sistema;
+
 /**
  *
  * @author felipe
@@ -28,21 +30,74 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
+        botonUltimaEjecu = new javax.swing.JRadioButton();
+        botonSistemaNuevo = new javax.swing.JRadioButton();
+        botonInicioAceptar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Comenzar con...");
+
+        buttonGroup1.add(botonUltimaEjecu);
+        botonUltimaEjecu.setSelected(true);
+        botonUltimaEjecu.setText("los datos de la ultima ejecucion");
+        botonUltimaEjecu.addActionListener(this::botonUltimaEjecuActionPerformed);
+
+        buttonGroup1.add(botonSistemaNuevo);
+        botonSistemaNuevo.setText("un Sistema nuevo");
+
+        botonInicioAceptar.setText("Aceptar");
+        botonInicioAceptar.addActionListener(this::botonInicioAceptarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(144, 144, 144)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonSistemaNuevo)
+                    .addComponent(botonUltimaEjecu))
+                .addContainerGap(236, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonInicioAceptar)
+                .addGap(87, 87, 87))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106)
+                .addComponent(botonUltimaEjecu)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonSistemaNuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(botonInicioAceptar)
+                .addGap(32, 32, 32))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonUltimaEjecuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonUltimaEjecuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonUltimaEjecuActionPerformed
+
+    private void botonInicioAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInicioAceptarActionPerformed
+        Sistema sistema = new Sistema();
+
+        MenuPrincipal ventana = new MenuPrincipal(sistema);
+        ventana.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_botonInicioAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +125,10 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonInicioAceptar;
+    private javax.swing.JRadioButton botonSistemaNuevo;
+    private javax.swing.JRadioButton botonUltimaEjecu;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
