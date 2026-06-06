@@ -4,11 +4,13 @@
  */
 package dominio;
 
+import java.io.Serializable;
+
 /**
  *
  * @author felipe
  */
-public class Paquete {
+public class Paquete implements Serializable{
 
     private String identificador;
     private Cliente cliente;
