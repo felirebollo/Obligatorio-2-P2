@@ -4,11 +4,13 @@
  */
 package dominio;
 
+import java.io.Serializable;
+
 /**
  *
  * @author felipe
  */
-public class Tarifa {
+public class Tarifa implements Serializable {
 
     private String zona;
     private int precioCategoria1;
