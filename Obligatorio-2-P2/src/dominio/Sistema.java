@@ -86,25 +86,25 @@ public class Sistema extends Observable implements Serializable {
     }
     
     public void agregarFuncionario(Funcionario funcionario) {
-        this.getFuncionarios().add(funcionario);
+        this.funcionarios.add(funcionario);
         this.setChanged();
         this.notifyObservers();
     }
     
     public void agregarPaquete(Paquete paquete) {
-        this.getPaquetes().add(paquete);
+        this.paquetes.add(paquete);
         this.setChanged();
         this.notifyObservers();
     }
     
     public void agregarEnvio(Envio envio) {
-        this.getEnvios().add(envio);
+        this.envios.add(envio);
         this.setChanged();
         this.notifyObservers();
     }   
     
     public void agregarTarifa(Tarifa tarifa) {
-        this.getTarifas().add(tarifa);
+        this.tarifas.add(tarifa);
         this.setChanged();
         this.notifyObservers();
     }
@@ -222,8 +222,7 @@ public class Sistema extends Observable implements Serializable {
         }
         return precio;
     }
-    // CREO QUE EN ESTA PARTE, SI POR EJ INGRESAS UN CLIENTE Y TIENE EL MISMO NOMBRE DE UN FUNCIONARIO DA REPETIDO
-    //NO SE SI DEBERIA SER ASI. 
+  
     public boolean existeNombre(String nombre) {
         boolean existe = false;
         int i = 0;

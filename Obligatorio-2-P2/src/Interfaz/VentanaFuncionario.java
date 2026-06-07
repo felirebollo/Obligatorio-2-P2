@@ -7,14 +7,13 @@ package Interfaz;
 import dominio.Funcionario;
 import dominio.Sistema;
 import javax.swing.JOptionPane;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 /**
  *
  * @author felipe
  */
-public class VentanaFuncionario extends javax.swing.JFrame {
+public class VentanaFuncionario extends javax.swing.JFrame implements Observer{
     
     private Sistema sistema;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaFuncionario.class.getName());
@@ -25,6 +24,8 @@ public class VentanaFuncionario extends javax.swing.JFrame {
     public VentanaFuncionario(Sistema unSistema) {
         initComponents();
         this.sistema = unSistema;
+        sistema.addObserver(this);
+        objetoAPantalla();
     }
 
     /**
@@ -54,6 +55,7 @@ public class VentanaFuncionario extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("CLIENTE NUEVO PRUEBA");
 
         btnNombre.setText("Nombre:");
 
@@ -65,7 +67,7 @@ public class VentanaFuncionario extends javax.swing.JFrame {
 
         txtCelular.addActionListener(this::txtCelularActionPerformed);
 
-        btnAgregar.setText("Agegar");
+        btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(this::btnAgregarActionPerformed);
 
         jPanel1.setLayout(null);
@@ -82,7 +84,7 @@ public class VentanaFuncionario extends javax.swing.JFrame {
         lstFuncionario.addListSelectionListener(this::lstFuncionarioValueChanged);
         jScrollPane1.setViewportView(lstFuncionario);
 
-        btnNumFuncionario1.setText("años ingresados:");
+        btnNumFuncionario1.setText("Año de ingreso:");
 
         txtCorreo1.addActionListener(this::txtCorreo1ActionPerformed);
 
@@ -134,10 +136,10 @@ public class VentanaFuncionario extends javax.swing.JFrame {
                                                 .addComponent(btnAgregar))
                                             .addComponent(txtAños, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(6, 6, 6)))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(289, Short.MAX_VALUE)
+                    .addContainerGap(244, Short.MAX_VALUE)
                     .addComponent(txtCorreo1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(134, 134, 134)))
         );
@@ -169,7 +171,7 @@ public class VentanaFuncionario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
                     .addComponent(btnModificar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(VentanaClienteLista)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -180,7 +182,7 @@ public class VentanaFuncionario extends javax.swing.JFrame {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(159, 159, 159)
                     .addComponent(txtCorreo1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(258, Short.MAX_VALUE)))
+                    .addContainerGap(276, Short.MAX_VALUE)))
         );
 
         pack();
@@ -195,26 +197,35 @@ public class VentanaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCelularActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        
         String nombre = txtNombre.getText();
         String celular = txtCelular.getText();
-
-        int numeroFuncionario = Integer.parseInt(txtNumFuncionario.getText());
-        int añoIngreso = Integer.parseInt(txtAños.getText());
-        
+        int numeroFuncionario;
+        int añoIngreso;
+        try 
+        { 
+              numeroFuncionario = Integer.parseInt(txtNumFuncionario.getText());
+              añoIngreso = Integer.parseInt(txtAños.getText());
+         ;
         if (!this.sistema.existeNombre(nombre)) {
 
             Funcionario funcionario = new Funcionario(nombre, celular, numeroFuncionario, añoIngreso);
             this.sistema.agregarFuncionario(funcionario);
-            cargarLista();
-            txtNombre.setText("");
-            txtCelular.setText("");
-            txtNumFuncionario.setText("");
-            txtAños.setText("");
+            
         } else {
             JOptionPane.showMessageDialog(this, "Ya existe una persona con ese nombre");
         }   
+        }
+        catch (Exception e){JOptionPane.showMessageDialog(this, "Debe ingresar un número entero en el tercer y cuarto campo");}
+        
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    @Override
+    public void update(Observable o, Object arg) 
+    {   objetoAPantalla();    }
+
+    
     private void txtNumFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumFuncionarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumFuncionarioActionPerformed
@@ -327,8 +338,9 @@ public class VentanaFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumFuncionario;
     // End of variables declaration//GEN-END:variables
+    
     public void cargarLista() {
-
+        
         //sirve para ordenar por Años, lo saque de chatGPT - Revisar
         Collections.sort(this.sistema.getFuncionarios(),
             Comparator.comparingInt(Funcionario::getAñoIngreso).reversed());
@@ -346,5 +358,15 @@ public class VentanaFuncionario extends javax.swing.JFrame {
 
         lstFuncionario.setListData(funcionarios);
     }   
+    
+public void objetoAPantalla ()
+{          
+            cargarLista();
+            txtNombre.setText("");
+            txtCelular.setText("");
+            txtNumFuncionario.setText("");
+            txtAños.setText("");
 
 }
+}
+

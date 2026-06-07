@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package Interfaz;
 
 import dominio.Cliente;
@@ -8,9 +11,9 @@ import java.util.*;
 
 /**
  *
- * @author felipe
+ * @author marti
  */
-public class VentanaCliente extends javax.swing.JFrame implements Observer {
+public class VentanaCliente extends javax.swing.JFrame implements Observer{
     
     private Sistema sistema;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaCliente.class.getName());
@@ -27,6 +30,11 @@ public class VentanaCliente extends javax.swing.JFrame implements Observer {
      objetoAPantalla();
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+         objetoAPantalla();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,234 +44,155 @@ public class VentanaCliente extends javax.swing.JFrame implements Observer {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnVentanaClienteNombre = new javax.swing.JLabel();
-        btnVentanaClienteCelular = new javax.swing.JLabel();
-        btnVentanaClienteCorreo = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstCliente = new javax.swing.JList<>();
         txtNombre = new javax.swing.JTextField();
         txtCelular = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        VentanaClienteLista = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lstCliente = new javax.swing.JList<>();
-        btnVentanaClienteAgregar = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        btnVolver = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        btnVentanaClienteNombre.setText("Nombre:");
-
-        btnVentanaClienteCelular.setText("Celular:");
-
-        btnVentanaClienteCorreo.setText("Correo");
-
-        txtNombre.addActionListener(this::txtNombreActionPerformed);
-
-        txtCelular.addActionListener(this::txtCelularActionPerformed);
-
-        txtCorreo.addActionListener(this::txtCorreoActionPerformed);
-
-        VentanaClienteLista.setText("Lista:");
-
-        lstCliente.setModel(new javax.swing.AbstractListModel<Object>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(lstCliente);
-
-        btnVentanaClienteAgregar.setText("Agegar");
-        btnVentanaClienteAgregar.addActionListener(this::btnVentanaClienteAgregarActionPerformed);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CLIENTE NUEVO PRUEBA");
 
         jPanel1.setLayout(null);
 
-        btnVolver.setText("Volver");
-        btnVolver.addActionListener(this::btnVolverActionPerformed);
+        lstCliente.addListSelectionListener(this::lstClienteValueChanged);
+        jScrollPane1.setViewportView(lstCliente);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(180, 160, 210, 150);
+
+        txtNombre.addActionListener(this::txtNombreActionPerformed);
+        jPanel1.add(txtNombre);
+        txtNombre.setBounds(181, 70, 210, 22);
+        jPanel1.add(txtCelular);
+        txtCelular.setBounds(180, 100, 210, 22);
+        jPanel1.add(txtCorreo);
+        txtCorreo.setBounds(180, 130, 210, 22);
 
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(this::btnModificarActionPerformed);
+        jPanel1.add(btnModificar);
+        btnModificar.setBounds(180, 320, 100, 23);
+
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(this::btnAgregarActionPerformed);
+        jPanel1.add(btnAgregar);
+        btnAgregar.setBounds(290, 320, 100, 23);
+
+        jLabel1.setText("Nombre");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(130, 70, 50, 16);
+
+        jLabel2.setText("Celular");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(130, 100, 37, 16);
+
+        jLabel3.setText("Correo");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(130, 130, 36, 16);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(104, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnVolver)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel4))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(147, 147, 147)
-                                .addComponent(btnModificar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnVentanaClienteAgregar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnVentanaClienteCelular, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnVentanaClienteNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnVentanaClienteCorreo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(VentanaClienteLista)
-                                        .addGap(29, 29, 29)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNombre)
-                                    .addComponent(txtCelular)
-                                    .addComponent(txtCorreo)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(177, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(98, 98, 98)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnVentanaClienteNombre))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnVentanaClienteCelular))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnVentanaClienteCorreo))
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnVentanaClienteAgregar)
-                            .addComponent(btnModificar))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(VentanaClienteLista))
-                .addGap(29, 29, 29)
-                .addComponent(btnVolver)
-                .addContainerGap(40, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
         );
 
-        pack();
+        setBounds(0, 0, 582, 437);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCelularActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCelularActionPerformed
-
-    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCorreoActionPerformed
-
-    private void btnVentanaClienteAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentanaClienteAgregarActionPerformed
-        String nombre = txtNombre.getText();
-        String celular = txtCelular.getText();
-        String correo = txtCorreo.getText();
-
-        if (!this.sistema.correoValido(correo)) {
-            JOptionPane.showMessageDialog(this, "Correo inválido");
-        } else {
-            Cliente clienteExistente = this.sistema.buscarCliente(correo);
-
-            if (!this.sistema.existeNombre(nombre) && clienteExistente == null) {
-
-                Cliente cliente = new Cliente(nombre, celular, correo);
-                this.sistema.agregarCliente(cliente);
-                
-                txtNombre.setText("");
-                txtCelular.setText("");
-                txtCorreo.setText("");
-
-            } else {
-                JOptionPane.showMessageDialog(this, "Ya existe un cliente con ese nombre o correo");
-            }
-        }
-    }//GEN-LAST:event_btnVentanaClienteAgregarActionPerformed
-
-    @Override
-    public void update(Observable o, Object arg) {
-        this.objetoAPantalla();
-       }
-
-    
-    
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnVolverActionPerformed
-  //LE CAMBIE LA PROPIEDAD DE LA LISTA DE STRING A CLIENTE, POR ESO CAMBIÓ TANTO EL CODIGO DE ESTE METODO Y DEL ANTERIOR
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+       String nombre = txtNombre.getText();
+       String celular = txtCelular.getText();
+       String correo = txtCorreo.getText();
+       
+       if (!this.sistema.existeNombre(nombre) && this.sistema.correoValido(correo)){
+       
+       Cliente cliente = new Cliente (nombre, celular, correo);
+       this.sistema.agregarCliente(cliente);} 
+       
+       else { JOptionPane.showMessageDialog(this, "Correo no valido o nombre repetido");}
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void lstClienteValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClienteValueChanged
+        
+        Cliente clienteSeleccionado = (Cliente) lstCliente.getSelectedValue();
+
+        if (clienteSeleccionado != null) {
+        txtNombre.setText(clienteSeleccionado.getNombre());
+        txtCelular.setText(clienteSeleccionado.getCelular());
+        txtCorreo.setText(clienteSeleccionado.getCorreo());
+}
+    }//GEN-LAST:event_lstClienteValueChanged
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+                                                     
 
-        Cliente cliente = (Cliente) lstCliente.getSelectedValue();
+         Cliente clienteSeleccionado = (Cliente) lstCliente.getSelectedValue();
 
-        if (cliente != null) {
+    if (clienteSeleccionado == null) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente de la lista");
+    } else {
 
-            String nombreNuevo = txtNombre.getText();
+        String nombreNuevo = txtNombre.getText();
+        String celularNuevo = txtCelular.getText();
+        String correoNuevo = txtCorreo.getText();
 
-            int i = 0;
-            boolean encontrado = false;
+        if (nombreNuevo.equals("")) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre");
+        } else {
 
-            while (i < this.sistema.getClientes().size() && !encontrado) 
-            {
+            String nombreAnterior = clienteSeleccionado.getNombre();
 
-                Cliente cliente1 = this.sistema.getClientes().get(i);
+            if (this.sistema.existeNombre(nombreNuevo) && !nombreNuevo.equals(nombreAnterior)) {
+                JOptionPane.showMessageDialog(this, "Ya existe un cliente con ese nombre");
+            } else {
 
-                if (cliente1.getNombre().equals(nombreNuevo)) 
-                {
-                  encontrado = true;
-                  JOptionPane.showMessageDialog(this, "Ya existe una persona con ese nombre");
-                } else {}
-                
-               i++;
+                clienteSeleccionado.setNombre(nombreNuevo);
+                clienteSeleccionado.setCelular(celularNuevo);
+                clienteSeleccionado.setCorreo(correoNuevo);
+
+                cargarLista();
+
+                txtNombre.setText("");
+                txtCelular.setText("");
+                txtCorreo.setText("");
+
+                lstCliente.clearSelection();
+
+                JOptionPane.showMessageDialog(this, "Cliente modificado correctamente");
+                sistema.setClientes(sistema.getClientes());
             }
-             
-            if (!encontrado)
-            {  
-               cliente.setNombre(txtNombre.getText());
-               cliente.setCelular(txtCelular.getText());
-               cliente.setCorreo(txtCorreo.getText());
-               
-            }
-                
-            }
+        }
+    }
 
-        this.sistema.setClientes(this.sistema.getClientes());
-        lstCliente.clearSelection();
-        
     }//GEN-LAST:event_btnModificarActionPerformed
- 
+
+    /**
+     * @param args the command line arguments
+     */
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel VentanaClienteLista;
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnVentanaClienteAgregar;
-    private javax.swing.JLabel btnVentanaClienteCelular;
-    private javax.swing.JLabel btnVentanaClienteCorreo;
-    private javax.swing.JLabel btnVentanaClienteNombre;
-    private javax.swing.JButton btnVolver;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<Object> lstCliente;
@@ -272,24 +201,23 @@ public class VentanaCliente extends javax.swing.JFrame implements Observer {
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
+public void cargarLista() {
+    Collections.sort(this.sistema.getClientes(), Comparator.comparing(Cliente::getNombre));
 
-    public void cargarLista() {
-        //Para ordenar por nombre creciente - Revisar
-        Collections.sort(this.sistema.getClientes(), Comparator.comparing(Cliente::getNombre));
-        
-        String[] clientes = new String[this.sistema.getClientes().size()];
-        int i = 0;
+    Cliente[] clientes = new Cliente[this.sistema.getClientes().size()];
 
-        while (i < this.sistema.getClientes().size()) {
-            clientes[i] = this.sistema.getClientes().get(i).toString();
-            i = i + 1;
-        }
+    int i = 0;
 
-        lstCliente.setListData(clientes);
+    while (i < this.sistema.getClientes().size()) {
+        clientes[i] = this.sistema.getClientes().get(i);
+        i++;
     }
-  
+
+    lstCliente.setListData(clientes);
+}
     
-    public void objetoAPantalla ()
+     
+ public void objetoAPantalla ()
  {
   cargarLista();
   txtNombre.setText("");
@@ -297,6 +225,5 @@ public class VentanaCliente extends javax.swing.JFrame implements Observer {
   txtCorreo.setText("");
   
  }
-
 
 }
