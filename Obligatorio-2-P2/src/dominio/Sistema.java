@@ -222,13 +222,18 @@ public class Sistema extends Observable implements Serializable {
         }
         return precio;
     }
+    
+    
   
-    public boolean existeNombre(String nombre) {
+    public boolean existeNombre(String nombreNuevo) {
+        
         boolean existe = false;
+        
+          
         int i = 0;
         while (i < this.getClientes().size() && !existe) {
 
-            if (this.getClientes().get(i).getNombre().equals(nombre)) {
+            if (this.getClientes().get(i).getNombre().equals(nombreNuevo)) {
                 existe = true;
             }
             i = i + 1;
@@ -236,11 +241,12 @@ public class Sistema extends Observable implements Serializable {
 
         i = 0;
         while (i < this.getFuncionarios().size() && !existe) {
-            if (this.getFuncionarios().get(i).getNombre().equals(nombre)) {
+            if (this.getFuncionarios().get(i).getNombre().equals(nombreNuevo)) {
                 existe = true;
             }
             i = i + 1;
         }
+        
         return existe;
     }
     

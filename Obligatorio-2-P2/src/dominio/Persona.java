@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author felipe
  */
-public class Persona implements Serializable{
+public abstract class Persona implements Serializable  {
 
     private String nombre;
     private String celular;

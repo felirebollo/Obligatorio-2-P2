@@ -39,6 +39,21 @@ public class Funcionario extends Persona implements Serializable{
         this.añoIngreso = anioIngreso;
     }
 
+    public static boolean sonEnterosValidos(String numFuncionario, String añoIngreso) {
+    boolean ok = true;
+
+    try {
+        int num = Integer.parseInt(numFuncionario);
+        int año = Integer.parseInt(añoIngreso);
+        if ((num < 0)||(año < 0)){ok = false;}
+        } 
+       catch (NumberFormatException e) 
+       {ok = false;}
+     
+    
+    
+    return ok;
+}
     @Override
     public String toString() {
         return this.getNombre();

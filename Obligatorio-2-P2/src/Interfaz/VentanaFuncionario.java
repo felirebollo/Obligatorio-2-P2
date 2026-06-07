@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Interfaz;
 
-import dominio.Funcionario;
-import dominio.Sistema;
+import dominio.*;
 import javax.swing.JOptionPane;
 import java.util.*;
 
@@ -76,10 +71,10 @@ public class VentanaFuncionario extends javax.swing.JFrame implements Observer{
 
         VentanaClienteLista.setText("Lista:");
 
-        lstFuncionario.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { };
+        lstFuncionario.setModel(new javax.swing.AbstractListModel<Object>() {
+            Object [] strings = { };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         lstFuncionario.addListSelectionListener(this::lstFuncionarioValueChanged);
         jScrollPane1.setViewportView(lstFuncionario);
@@ -243,78 +238,49 @@ public class VentanaFuncionario extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void lstFuncionarioValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstFuncionarioValueChanged
-        String nombreSeleccionado = lstFuncionario.getSelectedValue();
+       
+        Funcionario funcionario = (Funcionario) lstFuncionario.getSelectedValue();
 
-        if (nombreSeleccionado != null) {
-
-            int i = 0;
-            Funcionario funcionario = null;
-
-            while (i < this.sistema.getFuncionarios().size() && funcionario == null) {
-
-                Funcionario aux = this.sistema.getFuncionarios().get(i);
-
-                if (aux.getNombre().equals(nombreSeleccionado)) {
-                    funcionario = aux;
-                }
-
-                i = i + 1;
-            }
-
-            if (funcionario != null) {
+        if (funcionario != null) {
 
                 txtNombre.setText(funcionario.getNombre());
                 txtCelular.setText(funcionario.getCelular());
                 txtNumFuncionario.setText(String.valueOf(funcionario.getNumeroFuncionario()));
                 txtAños.setText(String.valueOf(funcionario.getAñoIngreso()));
             }
-        }
+        
     }//GEN-LAST:event_lstFuncionarioValueChanged
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 
-        String nombreSeleccionado = lstFuncionario.getSelectedValue();
-
-        if (nombreSeleccionado != null) {
-
+        Funcionario funcionario = (Funcionario) lstFuncionario.getSelectedValue();
+                
+        if (funcionario != null) {
+           
+            String nombreAnterior = funcionario.getNombre();
             String nombreNuevo = txtNombre.getText();
+            String cel = txtCelular.getText();
+            String añoIngreso = txtAños.getText();
+            String numFuncionario = txtNumFuncionario.getText();
+           
 
-            boolean encontrado = false;
-            int i = 0;
-
-            while (i < this.sistema.getFuncionarios().size() && !encontrado) {
-
-                Funcionario funcionario = this.sistema.getFuncionarios().get(i);
-
-                if (funcionario.getNombre().equals(nombreSeleccionado)) {
-
-                    if (!this.sistema.existeNombreDistinto(nombreNuevo,
-                            nombreSeleccionado)) {
-
-                        funcionario.setNombre(nombreNuevo);
-                        funcionario.setCelular(txtCelular.getText());
-                        funcionario.setNumeroFuncionario(Integer.parseInt(txtNumFuncionario.getText()));
-                        funcionario.setAñoIngreso(Integer.parseInt(txtAños.getText()));
-
-                        encontrado = true;
-
-                    } else {
-
-                        JOptionPane.showMessageDialog(this,"Ya existe una persona con ese nombre");
-                    }
-                }
-
-                i = i + 1;
-            }
-
-            cargarLista();
-
-            txtNombre.setText("");
-            txtCelular.setText("");
-            txtNumFuncionario.setText("");
-            txtAños.setText("");
-
-            lstFuncionario.clearSelection();
+            if (!nombreAnterior.equals(nombreNuevo) && Funcionario.sonEnterosValidos(numFuncionario, añoIngreso) && !this.sistema.existeNombre(nombreNuevo))
+            {   
+               int año = Integer.parseInt(añoIngreso);
+               int num = Integer.parseInt(numFuncionario);
+                 
+                funcionario.setNombre(nombreNuevo);
+                funcionario.setCelular(cel);
+                funcionario.setAñoIngreso(año);
+                funcionario.setNumeroFuncionario(num);
+               
+                
+                sistema.setClientes(sistema.getClientes());
+                lstFuncionario.clearSelection();
+                
+            } else {JOptionPane.showMessageDialog(this, "Nombre repetido o numeros invalidos");}
+            
+            
         }
 
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -331,7 +297,7 @@ public class VentanaFuncionario extends javax.swing.JFrame implements Observer{
     private javax.swing.JButton btnVolver;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> lstFuncionario;
+    private javax.swing.JList<Object> lstFuncionario;
     private javax.swing.JTextField txtAños;
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtCorreo1;
