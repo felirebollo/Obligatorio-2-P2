@@ -99,6 +99,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
+      
         VentanaFuncionario ventana = new VentanaFuncionario(this.sistema);
         ventana.setVisible(true);
     }//GEN-LAST:event_btnFuncionarioActionPerformed

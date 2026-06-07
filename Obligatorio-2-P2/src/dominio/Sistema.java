@@ -1,17 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dominio;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  *
  * @author felipe
  */
-public class Sistema implements Serializable {
+public class Sistema extends Observable implements Serializable {
 
     private ArrayList<Cliente> clientes;
     private ArrayList<Funcionario> funcionarios;
@@ -42,6 +39,8 @@ public class Sistema implements Serializable {
 
     public void setClientes(ArrayList<Cliente> clientes) {
         this.clientes = clientes;
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public ArrayList<Funcionario> getFuncionarios() {
@@ -81,25 +80,35 @@ public class Sistema implements Serializable {
     
     
     public void agregarCliente(Cliente cliente) {
-        this.getClientes().add(cliente);
+    this.clientes.add(cliente);
+    this.setChanged();
+    this.notifyObservers();
     }
     
     public void agregarFuncionario(Funcionario funcionario) {
         this.getFuncionarios().add(funcionario);
+        this.setChanged();
+        this.notifyObservers();
     }
     
     public void agregarPaquete(Paquete paquete) {
         this.getPaquetes().add(paquete);
+        this.setChanged();
+        this.notifyObservers();
     }
     
     public void agregarEnvio(Envio envio) {
         this.getEnvios().add(envio);
+        this.setChanged();
+        this.notifyObservers();
     }   
     
     public void agregarTarifa(Tarifa tarifa) {
         this.getTarifas().add(tarifa);
+        this.setChanged();
+        this.notifyObservers();
     }
-    
+    // NO QUISE CAMBIAR PERO ME PARECER QUE PIDE CONTROLAR SOLO EL NOMBRE
     public Cliente buscarCliente(String correo) {
         Cliente clienteBuscado = null;
         boolean encontrado = false;
@@ -213,7 +222,8 @@ public class Sistema implements Serializable {
         }
         return precio;
     }
-    
+    // CREO QUE EN ESTA PARTE, SI POR EJ INGRESAS UN CLIENTE Y TIENE EL MISMO NOMBRE DE UN FUNCIONARIO DA REPETIDO
+    //NO SE SI DEBERIA SER ASI. 
     public boolean existeNombre(String nombre) {
         boolean existe = false;
         int i = 0;

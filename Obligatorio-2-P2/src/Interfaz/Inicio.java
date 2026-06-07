@@ -13,13 +13,18 @@ import dominio.Sistema;
 public class Inicio extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Inicio.class.getName());
-
-    /**
-     * Creates new form Inicio
-     */
-    public Inicio() {
+    private Sistema unSistema = new Sistema();
+    
+     public Inicio() {
         initComponents();
     }
+    
+    public static void main(String[] args) {
+       Inicio inicio = new Inicio ();
+       inicio.setVisible(true);
+    }
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,6 +52,7 @@ public class Inicio extends javax.swing.JFrame {
 
         buttonGroup1.add(botonSistemaNuevo);
         botonSistemaNuevo.setText("un Sistema nuevo");
+        botonSistemaNuevo.addActionListener(this::botonSistemaNuevoActionPerformed);
 
         botonInicioAceptar.setText("Aceptar");
         botonInicioAceptar.addActionListener(this::botonInicioAceptarActionPerformed);
@@ -91,39 +97,17 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_botonUltimaEjecuActionPerformed
 
     private void botonInicioAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInicioAceptarActionPerformed
-        Sistema sistema = new Sistema();
-
-        MenuPrincipal ventana = new MenuPrincipal(sistema);
+        MenuPrincipal ventana = new MenuPrincipal(this.unSistema);
         ventana.setVisible(true);
 
         this.dispose();
     }//GEN-LAST:event_botonInicioAceptarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void botonSistemaNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSistemaNuevoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonSistemaNuevoActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Inicio().setVisible(true));
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonInicioAceptar;
     private javax.swing.JRadioButton botonSistemaNuevo;

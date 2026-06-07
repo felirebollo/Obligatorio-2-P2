@@ -1,20 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Interfaz;
 
 import dominio.Cliente;
 import dominio.Sistema;
 import javax.swing.JOptionPane;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 /**
  *
  * @author felipe
  */
-public class VentanaCliente extends javax.swing.JFrame {
+public class VentanaCliente extends javax.swing.JFrame implements Observer {
     
     private Sistema sistema;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaCliente.class.getName());
@@ -23,8 +19,12 @@ public class VentanaCliente extends javax.swing.JFrame {
      * Creates new form VentanaCliente
      */
     public VentanaCliente(Sistema unSistema) {
-        initComponents();
-        this.sistema = unSistema;  
+    initComponents();
+    this.sistema = unSistema;
+
+    this.sistema.addObserver(this);
+
+     objetoAPantalla();
     }
 
     /**
@@ -188,8 +188,7 @@ public class VentanaCliente extends javax.swing.JFrame {
 
                 Cliente cliente = new Cliente(nombre, celular, correo);
                 this.sistema.agregarCliente(cliente);
-                cargarLista();
-
+                
                 txtNombre.setText("");
                 txtCelular.setText("");
                 txtCorreo.setText("");
@@ -200,6 +199,13 @@ public class VentanaCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnVentanaClienteAgregarActionPerformed
 
+    @Override
+    public void update(Observable o, Object arg) {
+        this.objetoAPantalla();
+       }
+
+    
+    
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
@@ -209,72 +215,57 @@ public class VentanaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void lstClienteValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClienteValueChanged
-        String nombreSeleccionado = lstCliente.getSelectedValue();
         
-        boolean encontrado = false;
-        int i = 0;
+        Cliente cliente = (Cliente) lstCliente.getSelectedValue();
+        
+        txtNombre.setText(cliente.getNombre());
+        txtCelular.setText(cliente.getCelular());
+        txtCorreo.setText(cliente.getCorreo());
 
-        while (i < this.sistema.getClientes().size() && !encontrado) {
-
-            Cliente cliente = this.sistema.getClientes().get(i);
-
-            if (cliente.getNombre().equals(nombreSeleccionado)) {
-
-                txtNombre.setText(cliente.getNombre());
-                txtCelular.setText(cliente.getCelular());
-                txtCorreo.setText(cliente.getCorreo());
-
-                encontrado = true;
-            }
-
-            i = i + 1;
-        }
+        
     }//GEN-LAST:event_lstClienteValueChanged
+  //LE CAMBIE LA PROPIEDAD DE LA LISTA DE STRING A CLIENTE, POR ESO CAMBIÓ TANTO EL CODIGO DE ESTE METODO Y DEL ANTERIOR
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 
-        String nombreSeleccionado = lstCliente.getSelectedValue();
+        Cliente cliente = (Cliente) lstCliente.getSelectedValue();
 
-        if (nombreSeleccionado != null) {
+        if (cliente != null) {
 
             String nombreNuevo = txtNombre.getText();
 
             int i = 0;
             boolean encontrado = false;
 
-            while (i < this.sistema.getClientes().size() && !encontrado) {
+            while (i < this.sistema.getClientes().size() && !encontrado) 
+            {
 
-                Cliente cliente = this.sistema.getClientes().get(i);
+                Cliente cliente1 = this.sistema.getClientes().get(i);
 
-                if (cliente.getNombre().equals(nombreSeleccionado)) {
-
-                    if (!this.sistema.existeNombreDistinto(nombreNuevo, nombreSeleccionado)) {
-
-                        cliente.setNombre(nombreNuevo);
-                        cliente.setCelular(txtCelular.getText());
-                        cliente.setCorreo(txtCorreo.getText());
-
-                        encontrado = true;
-
-                    } else {
-
-                        JOptionPane.showMessageDialog(this, "Ya existe una persona con ese nombre");
-                    }
-                }
-
-                i = i + 1;
+                if (cliente1.getNombre().equals(nombreNuevo)) 
+                {
+                  encontrado = true;
+                  JOptionPane.showMessageDialog(this, "Ya existe una persona con ese nombre");
+                } else {}
+                
+               i++;
+            }
+             
+            if (!encontrado)
+            {  
+               cliente.setNombre(txtNombre.getText());
+               cliente.setCelular(txtCelular.getText());
+               cliente.setCorreo(txtCorreo.getText());
+               
+            }
+                
             }
 
-            cargarLista();
-
-            txtNombre.setText("");
-            txtCelular.setText("");
-            txtCorreo.setText("");
-
-            lstCliente.clearSelection();
-        }
+        this.sistema.setClientes(this.sistema.getClientes());
+        lstCliente.clearSelection();
+        
     }//GEN-LAST:event_btnModificarActionPerformed
-   
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel VentanaClienteLista;
     private javax.swing.JButton btnModificar;
@@ -287,7 +278,7 @@ public class VentanaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> lstCliente;
+    private javax.swing.JList<Object> lstCliente;
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombre;
@@ -308,7 +299,16 @@ public class VentanaCliente extends javax.swing.JFrame {
 
         lstCliente.setListData(clientes);
     }
-   
+  
+    
+    public void objetoAPantalla ()
+ {
+  cargarLista();
+  txtNombre.setText("");
+  txtCelular.setText("");
+  txtCorreo.setText("");
+  
+ }
+
 
 }
-
