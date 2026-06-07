@@ -63,6 +63,7 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
         jPanel1.add(jLabel1);
         jLabel1.setBounds(10, 20, 150, 16);
 
+        lstCliente.addListSelectionListener(this::lstClienteValueChanged);
         jScrollPane1.setViewportView(lstCliente);
 
         jPanel1.add(jScrollPane1);
@@ -105,6 +106,7 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
         jLabel7.setBounds(230, 150, 150, 16);
 
         btnCosto.setText("Calcular Costo");
+        btnCosto.addActionListener(this::btnCostoActionPerformed);
         jPanel1.add(btnCosto);
         btnCosto.setBounds(420, 70, 120, 23);
         jPanel1.add(txtCosto);
@@ -119,11 +121,11 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
         );
 
         pack();
@@ -132,6 +134,28 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void lstClienteValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClienteValueChanged
+        
+        Cliente clienteSeleccionado = (Cliente) lstCliente.getSelectedValue();
+
+        if (clienteSeleccionado != null) {
+        txtClienteElegido.setText(clienteSeleccionado.getNombre());}
+    }//GEN-LAST:event_lstClienteValueChanged
+
+    private void btnCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCostoActionPerformed
+        
+        
+        String departamento = txtDepartamento.getText();
+        int peso = Integer.parseInt(txtPeso.getText());
+        Tarifa tarifa = new Tarifa(departamento , peso);
+        System.out.println(tarifa.getZona());
+        
+        int precioFinal = tarifa.getValor();
+        
+        System.out.println(precioFinal);
+        txtCosto.setText("" + precioFinal);
+    }//GEN-LAST:event_btnCostoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,6 +189,8 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
   public void objetoAPantalla (){
       
        lstCliente.setListData(sistema.getClientes().toArray());
+        txtClienteElegido.setText("");
+
 
 
   }

@@ -203,7 +203,8 @@ public class Sistema extends Observable implements Serializable {
         return envioBuscado;
     }  
 
-    public int calcularPrecio(String zona, int pesoGramo){
+    /* NO ME DI CUENTA QUE YA ESTABA ESTO Y ARME ALGO PARECIDO
+public int calcularPrecio(String zona, int pesoGramo){
         Tarifa tarifa = this.buscarTarifa(zona);
         int precio = 0;
         if (tarifa != null) {
@@ -222,7 +223,7 @@ public class Sistema extends Observable implements Serializable {
             }
         }
         return precio;
-    }
+    }*/
     
     
   
