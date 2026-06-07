@@ -42,6 +42,8 @@ public class Sistema extends Observable implements Serializable {
         this.setChanged();
         this.notifyObservers();
     }
+    
+    
 
     public ArrayList<Funcionario> getFuncionarios() {
         return funcionarios;
@@ -148,24 +150,23 @@ public class Sistema extends Observable implements Serializable {
         return funcionarioBuscado;
     }
     
-    public Paquete buscarPaquete(String identificador) {
-        Paquete paqueteBuscado = null;
-        boolean encontrado = false;
+    public boolean existeIdPaquete(String id) {
+        
+        boolean existe = false;
         int i = 0;
 
-        while (i < this.getPaquetes().size() && !encontrado) {
+        while (i < this.getPaquetes().size() && !existe) {
 
             Paquete paquete = this.getPaquetes().get(i);
 
-            if (paquete.getIdentificador().equals(identificador)) {
-                paqueteBuscado = paquete;
-                encontrado = true;
+            if (paquete.getIdentificador().equals(id)) {
+                 existe = true;
             }
 
             i = i + 1;
         }
 
-        return paqueteBuscado;
+        return existe;
     }
     
     public Tarifa buscarTarifa(String zona) {
@@ -233,7 +234,7 @@ public class Sistema extends Observable implements Serializable {
         int i = 0;
         while (i < this.getClientes().size() && !existe) {
 
-            if (this.getClientes().get(i).getNombre().equals(nombreNuevo)) {
+            if (this.getClientes().get(i).getNombre().equalsIgnoreCase(nombreNuevo)) {
                 existe = true;
             }
             i = i + 1;
@@ -241,7 +242,7 @@ public class Sistema extends Observable implements Serializable {
 
         i = 0;
         while (i < this.getFuncionarios().size() && !existe) {
-            if (this.getFuncionarios().get(i).getNombre().equals(nombreNuevo)) {
+            if (this.getFuncionarios().get(i).getNombre().equalsIgnoreCase(nombreNuevo)) {
                 existe = true;
             }
             i = i + 1;
@@ -254,7 +255,7 @@ public class Sistema extends Observable implements Serializable {
 
         boolean valido = false;
 
-        if (correo.contains("@") && correo.contains(".")) {
+        if (correo.length() > 5 && correo.contains("@") && correo.substring(correo.length()-4).equalsIgnoreCase(".com")) {
             valido = true;
         }
 

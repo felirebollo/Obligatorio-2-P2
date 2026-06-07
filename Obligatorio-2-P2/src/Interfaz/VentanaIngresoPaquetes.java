@@ -1,23 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Interfaz;
+import dominio.*;
+import java.util.*;
 
-/**
- *
- * @author felipe
- */
-public class VentanaIngresoPaquetes extends javax.swing.JFrame {
+public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observer{
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaIngresoPaquetes.class.getName());
-
+    private Sistema sistema;
     /**
      * Creates new form VentanaIngresoPaquetes
      */
-    public VentanaIngresoPaquetes() {
+    public VentanaIngresoPaquetes(Sistema unSistema) {
         initComponents();
+        sistema = unSistema;
+        sistema.addObserver(this);
+        objetoAPantalla();
     }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        objetoAPantalla();
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,47 +32,141 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        txtIdentificador = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstCliente = new javax.swing.JList<>();
+        txtClienteElegido = new javax.swing.JTextField();
+        txtFecha = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtDestinatario = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtDepartamento = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtPeso = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        btnCosto = new javax.swing.JButton();
+        txtCosto = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setLayout(null);
+        jPanel1.add(txtIdentificador);
+        txtIdentificador.setBounds(160, 20, 71, 22);
+
+        jLabel1.setText("Identificador del paquete");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(10, 20, 150, 16);
+
+        jScrollPane1.setViewportView(lstCliente);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(30, 100, 160, 170);
+        jPanel1.add(txtClienteElegido);
+        txtClienteElegido.setBounds(30, 70, 160, 22);
+        jPanel1.add(txtFecha);
+        txtFecha.setBounds(300, 100, 90, 22);
+
+        jLabel2.setText("Fecha");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(260, 100, 31, 16);
+
+        jLabel3.setText("Nombre");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(250, 180, 50, 16);
+        jPanel1.add(txtDestinatario);
+        txtDestinatario.setBounds(300, 180, 90, 22);
+
+        jLabel4.setText("Dirección");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(240, 240, 60, 16);
+        jPanel1.add(txtDireccion);
+        txtDireccion.setBounds(300, 240, 90, 22);
+
+        jLabel5.setText("Departamento");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(220, 210, 90, 16);
+        jPanel1.add(txtDepartamento);
+        txtDepartamento.setBounds(300, 210, 90, 22);
+
+        jLabel6.setText("Peso del paquete");
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(200, 70, 100, 16);
+        jPanel1.add(txtPeso);
+        txtPeso.setBounds(300, 70, 90, 22);
+
+        jLabel7.setText("DATOS DEL DESTINATARIO");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(230, 150, 150, 16);
+
+        btnCosto.setText("Calcular Costo");
+        jPanel1.add(btnCosto);
+        btnCosto.setBounds(420, 70, 120, 23);
+        jPanel1.add(txtCosto);
+        txtCosto.setBounds(420, 100, 120, 22);
+
+        jButton1.setText("Confirmar\n ingreso");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+        jPanel1.add(jButton1);
+        jButton1.setBounds(420, 180, 130, 80);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VentanaIngresoPaquetes().setVisible(true));
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCosto;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<Object> lstCliente;
+    private javax.swing.JTextField txtClienteElegido;
+    private javax.swing.JTextField txtCosto;
+    private javax.swing.JTextField txtDepartamento;
+    private javax.swing.JTextField txtDestinatario;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtIdentificador;
+    private javax.swing.JTextField txtPeso;
     // End of variables declaration//GEN-END:variables
+
+
+  public void objetoAPantalla (){
+      
+       lstCliente.setListData(sistema.getClientes().toArray());
+
+
+  }
+
 }

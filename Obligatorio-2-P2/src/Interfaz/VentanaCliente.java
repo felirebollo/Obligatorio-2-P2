@@ -56,8 +56,8 @@ public class VentanaCliente extends javax.swing.JFrame implements Observer{
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("CLIENTE NUEVO PRUEBA");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("CLIENTES");
 
         jPanel1.setLayout(null);
 
@@ -87,15 +87,15 @@ public class VentanaCliente extends javax.swing.JFrame implements Observer{
 
         jLabel1.setText("Nombre");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(130, 70, 50, 16);
+        jLabel1.setBounds(110, 70, 70, 16);
 
         jLabel2.setText("Celular");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(130, 100, 37, 16);
+        jLabel2.setBounds(110, 100, 50, 16);
 
         jLabel3.setText("Correo");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(130, 130, 36, 16);
+        jLabel3.setBounds(110, 130, 50, 16);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,7 +142,7 @@ public class VentanaCliente extends javax.swing.JFrame implements Observer{
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
                                                      
 
-         Cliente clienteSeleccionado = (Cliente) lstCliente.getSelectedValue();
+     Cliente clienteSeleccionado = (Cliente) lstCliente.getSelectedValue();
 
     if (clienteSeleccionado == null) {
         JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente de la lista");
