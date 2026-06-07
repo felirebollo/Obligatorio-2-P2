@@ -68,12 +68,11 @@ public class VentanaCliente extends javax.swing.JFrame implements Observer {
 
         VentanaClienteLista.setText("Lista:");
 
-        lstCliente.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { };
+        lstCliente.setModel(new javax.swing.AbstractListModel<Object>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
-        lstCliente.addListSelectionListener(this::lstClienteValueChanged);
         jScrollPane1.setViewportView(lstCliente);
 
         btnVentanaClienteAgregar.setText("Agegar");
@@ -213,17 +212,6 @@ public class VentanaCliente extends javax.swing.JFrame implements Observer {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
-    private void lstClienteValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClienteValueChanged
-        
-        Cliente cliente = (Cliente) lstCliente.getSelectedValue();
-        
-        txtNombre.setText(cliente.getNombre());
-        txtCelular.setText(cliente.getCelular());
-        txtCorreo.setText(cliente.getCorreo());
-
-        
-    }//GEN-LAST:event_lstClienteValueChanged
   //LE CAMBIE LA PROPIEDAD DE LA LISTA DE STRING A CLIENTE, POR ESO CAMBIÓ TANTO EL CODIGO DE ESTE METODO Y DEL ANTERIOR
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
