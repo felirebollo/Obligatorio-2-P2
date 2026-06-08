@@ -12,6 +12,7 @@ public class VentanaEnvio extends javax.swing.JFrame {
     public VentanaEnvio(Sistema unSistema) {
         initComponents();
         this.sistema = unSistema;
+        objetoAPantalla();
     }
 
     /**
@@ -23,21 +24,137 @@ public class VentanaEnvio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtFecha = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstPendientes = new javax.swing.JList<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        txtZona = new javax.swing.JTextField();
+        txtEnvio = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        lstFuncionarios = new javax.swing.JList<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        txtFuncionario = new javax.swing.JTextField();
+        btnAgregar = new javax.swing.JButton();
+        btnQuitar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtCantidad = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtPeso = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtPrecio = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel8 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setLayout(null);
+
+        jLabel1.setText("Fecha");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(18, 9, 37, 16);
+        jPanel1.add(txtFecha);
+        txtFecha.setBounds(61, 6, 71, 22);
+
+        jScrollPane1.setViewportView(lstPendientes);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(27, 207, 124, 160);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Norte", "Sur", "Este", "Oeste", " " }));
+        jPanel1.add(jComboBox1);
+        jComboBox1.setBounds(18, 80, 72, 22);
+
+        txtZona.setEditable(false);
+        jPanel1.add(txtZona);
+        txtZona.setBounds(102, 80, 129, 22);
+
+        txtEnvio.setEditable(false);
+        jPanel1.add(txtEnvio);
+        txtEnvio.setBounds(420, 6, 71, 22);
+
+        jLabel2.setText("Número de envio");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(320, 10, 93, 16);
+
+        jPanel1.add(lstFuncionarios);
+        lstFuncionarios.setBounds(248, 207, 122, 158);
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        jPanel1.add(jComboBox2);
+        jComboBox2.setBounds(18, 46, 72, 22);
+
+        txtFuncionario.setEditable(false);
+        jPanel1.add(txtFuncionario);
+        txtFuncionario.setBounds(102, 46, 129, 22);
+
+        btnAgregar.setText("Agregar");
+        jPanel1.add(btnAgregar);
+        btnAgregar.setBounds(155, 244, 80, 23);
+
+        btnQuitar.setText("Quitar");
+        jPanel1.add(btnQuitar);
+        btnQuitar.setBounds(163, 273, 72, 23);
+
+        jLabel3.setText("Paquetes pendientes");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(30, 180, 124, 16);
+
+        jLabel4.setText("Paquetes seleccionados");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(250, 180, 134, 16);
+
+        jLabel5.setText("Número de paquetes");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(281, 90, 120, 16);
+
+        txtCantidad.setEditable(false);
+        txtCantidad.addActionListener(this::txtCantidadActionPerformed);
+        jPanel1.add(txtCantidad);
+        txtCantidad.setBounds(410, 90, 71, 22);
+
+        jLabel6.setText("Peso de los paquetes");
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(280, 120, 120, 16);
+
+        txtPeso.setEditable(false);
+        jPanel1.add(txtPeso);
+        txtPeso.setBounds(410, 120, 71, 22);
+
+        jLabel7.setText("Precio del envio");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(310, 150, 93, 16);
+
+        txtPrecio.setEditable(false);
+        jPanel1.add(txtPrecio);
+        txtPrecio.setBounds(410, 150, 71, 22);
+        jPanel1.add(jSeparator1);
+        jSeparator1.setBounds(400, 180, 50, 10);
+
+        jLabel8.setText("Datos del envio");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(360, 60, 90, 16);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -45,5 +162,38 @@ public class VentanaEnvio extends javax.swing.JFrame {
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnQuitar;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JList<String> lstFuncionarios;
+    private javax.swing.JList<String> lstPendientes;
+    private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtEnvio;
+    private javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtFuncionario;
+    private javax.swing.JTextField txtPeso;
+    private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtZona;
     // End of variables declaration//GEN-END:variables
+
+
+  public void objetoAPantalla()
+   {
+     txtEnvio.setText(""+ sistema.getNumeroEnvio());
+   
+   
+   }
+
 }

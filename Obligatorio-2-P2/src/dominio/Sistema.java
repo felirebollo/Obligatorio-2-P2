@@ -169,24 +169,7 @@ public class Sistema extends Observable implements Serializable {
         return existe;
     }
     
-    public Tarifa buscarTarifa(String zona) {
-        Tarifa tarifaBuscada = null;
-        int i = 0;
-
-        while (i < this.getTarifas().size() && tarifaBuscada == null) {
-
-            Tarifa tarifa = this.getTarifas().get(i);
-
-            if (tarifa.getZona().equals(zona)) {
-                tarifaBuscada = tarifa;
-            }
-
-            i = i + 1;
-        }
-
-        return tarifaBuscada;
-    }
-    
+      
     public Envio buscarEnvio(int numero) {
         Envio envioBuscado = null;
         boolean encontrado = false;
@@ -203,29 +186,7 @@ public class Sistema extends Observable implements Serializable {
         return envioBuscado;
     }  
 
-    /* NO ME DI CUENTA QUE YA ESTABA ESTO Y ARME ALGO PARECIDO
-public int calcularPrecio(String zona, int pesoGramo){
-        Tarifa tarifa = this.buscarTarifa(zona);
-        int precio = 0;
-        if (tarifa != null) {
-        if (pesoGramo < 1000) {
-            precio = tarifa.getPrecioCategoria1();
-        } else {
-            if (pesoGramo < 5000) {
-                precio = tarifa.getPrecioCategoria2();
-            } else {
-                if (pesoGramo < 10000) {
-                    precio = tarifa.getPrecioCategoria3();
-                } else {
-                    precio = tarifa.getPrecioCategoria4();
-                    }
-                }
-            }
-        }
-        return precio;
-    }*/
-    
-    
+       
   
     public boolean existeNombre(String nombreNuevo) {
         
@@ -299,5 +260,11 @@ public int calcularPrecio(String zona, int pesoGramo){
         return existe;
     }
 
+    public int getNumeroEnvio ()
+    {
+        
+       return this.envios.size()+1;
     
+    
+    }
 }

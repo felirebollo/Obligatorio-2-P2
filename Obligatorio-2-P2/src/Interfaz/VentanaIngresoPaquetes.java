@@ -1,6 +1,8 @@
 package Interfaz;
 import dominio.*;
 import java.util.*;
+import javax.swing.JOptionPane;
+
 
 public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observer{
     
@@ -45,13 +47,13 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
         jLabel4 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtDepartamento = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtPeso = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         btnCosto = new javax.swing.JButton();
         txtCosto = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnConfirmar = new javax.swing.JButton();
+        cbxDepartamento = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -68,54 +70,60 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(30, 100, 160, 170);
+
+        txtClienteElegido.setEditable(false);
         jPanel1.add(txtClienteElegido);
         txtClienteElegido.setBounds(30, 70, 160, 22);
         jPanel1.add(txtFecha);
-        txtFecha.setBounds(300, 100, 90, 22);
+        txtFecha.setBounds(360, 110, 90, 22);
 
         jLabel2.setText("Fecha");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(260, 100, 31, 16);
+        jLabel2.setBounds(310, 110, 31, 16);
 
         jLabel3.setText("Nombre");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(250, 180, 50, 16);
+        jLabel3.setBounds(310, 190, 50, 16);
         jPanel1.add(txtDestinatario);
-        txtDestinatario.setBounds(300, 180, 90, 22);
+        txtDestinatario.setBounds(360, 190, 90, 22);
 
         jLabel4.setText("Dirección");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(240, 240, 60, 16);
+        jLabel4.setBounds(300, 250, 60, 16);
         jPanel1.add(txtDireccion);
-        txtDireccion.setBounds(300, 240, 90, 22);
+        txtDireccion.setBounds(360, 250, 90, 22);
 
         jLabel5.setText("Departamento");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(220, 210, 90, 16);
-        jPanel1.add(txtDepartamento);
-        txtDepartamento.setBounds(300, 210, 90, 22);
+        jLabel5.setBounds(280, 220, 90, 16);
 
-        jLabel6.setText("Peso del paquete");
+        jLabel6.setText("Peso del paquete (gramos)");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(200, 70, 100, 16);
+        jLabel6.setBounds(210, 80, 150, 16);
         jPanel1.add(txtPeso);
-        txtPeso.setBounds(300, 70, 90, 22);
+        txtPeso.setBounds(360, 80, 90, 22);
 
         jLabel7.setText("DATOS DEL DESTINATARIO");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(230, 150, 150, 16);
+        jLabel7.setBounds(290, 160, 150, 16);
 
         btnCosto.setText("Calcular Costo");
         btnCosto.addActionListener(this::btnCostoActionPerformed);
         jPanel1.add(btnCosto);
-        btnCosto.setBounds(420, 70, 120, 23);
-        jPanel1.add(txtCosto);
-        txtCosto.setBounds(420, 100, 120, 22);
+        btnCosto.setBounds(480, 80, 120, 23);
 
-        jButton1.setText("Confirmar\n ingreso");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-        jPanel1.add(jButton1);
-        jButton1.setBounds(420, 180, 130, 80);
+        txtCosto.setEditable(false);
+        jPanel1.add(txtCosto);
+        txtCosto.setBounds(480, 110, 120, 22);
+
+        btnConfirmar.setText("Confirmar\n ingreso");
+        btnConfirmar.addActionListener(this::btnConfirmarActionPerformed);
+        jPanel1.add(btnConfirmar);
+        btnConfirmar.setBounds(480, 190, 130, 80);
+
+        cbxDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Artigas", "Canelones", "Cerro Largo", "Colonia", "Durazno", "Flores", "Florida", "Lavalleja", "Maldonado", "Montevideo", "Paysandú", "Río Negro", "Rivera", "Rocha", "Salto", "San José", "Soriano", "Tacuarembó", "Treinta y Tres" }));
+        jPanel1.add(cbxDepartamento);
+        cbxDepartamento.setBounds(360, 220, 105, 22);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,10 +139,48 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        
+        String fecha = txtFecha.getText();
+        String nombreDest = txtDestinatario.getText();
+        String direccionDest = txtDireccion.getText();
+        String identificador = txtIdentificador.getText();
+        String departamento = "" + cbxDepartamento.getSelectedItem();
+        Cliente cliente = (Cliente) lstCliente.getSelectedValue();
+        int peso = 0;
+        int precioFinal = 0;
+        boolean validaPeso = false;
+        
+        if (nombreDest.length()!=0 && direccionDest.length()!=0 && identificador.length()!=0  && cliente != null)
+        {
+          try {
+        peso = Integer.parseInt(txtPeso.getText());
+        precioFinal = Tarifa.valorActual(departamento, peso);
+        txtCosto.setText("" + precioFinal);
+        validaPeso = true;
+        } catch (NumberFormatException e){JOptionPane.showMessageDialog(this,"Debe ingresar un número entero en el peso");}
+        
+        if (validaPeso)
+        {  
+          if (validaPeso && fecha.length() == 10 && fecha.charAt(2) == '/' && fecha.charAt(5) == '/' )   
+          {
+             try {
 
+                   Integer.parseInt(fecha.substring(0,2));
+                   Integer.parseInt(fecha.substring(3,5));
+                   Integer.parseInt(fecha.substring(6,10));
+                   Paquete paquete = new Paquete (identificador, cliente, fecha, nombreDest, direccionDest, departamento, peso, precioFinal, "Pendiente");
+                   sistema.agregarPaquete(paquete);
+                   JOptionPane.showMessageDialog(this, "El paquete ha sido ingresado");
+                   
+                  }
+             catch (NumberFormatException e){JOptionPane.showMessageDialog(this, "Formato de fecha no válido");}
+           } else {JOptionPane.showMessageDialog(this, "Formato de fecha no válido (dd/mm/aaaa)");}
+        }  
+        } else {JOptionPane.showMessageDialog(this, "Debe completar todos los campos");}
+        
+    }//GEN-LAST:event_btnConfirmarActionPerformed
+        
     private void lstClienteValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClienteValueChanged
         
         Cliente clienteSeleccionado = (Cliente) lstCliente.getSelectedValue();
@@ -146,15 +192,17 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
     private void btnCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCostoActionPerformed
         
         
-        String departamento = txtDepartamento.getText();
+        String departamento = "" + cbxDepartamento.getSelectedItem();
+        
+        try {
         int peso = Integer.parseInt(txtPeso.getText());
-        Tarifa tarifa = new Tarifa(departamento , peso);
-        System.out.println(tarifa.getZona());
-        
-        int precioFinal = tarifa.getValor();
-        
-        System.out.println(precioFinal);
+        int precioFinal = Tarifa.valorActual(departamento, peso);
         txtCosto.setText("" + precioFinal);
+        } catch (NumberFormatException e){JOptionPane.showMessageDialog(this,"Debe ingresar un número entero en el peso");}
+        Tarifa.setTarifas();
+        
+        
+        
     }//GEN-LAST:event_btnCostoActionPerformed
 
     /**
@@ -163,8 +211,9 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnCosto;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> cbxDepartamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -177,7 +226,6 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
     private javax.swing.JList<Object> lstCliente;
     private javax.swing.JTextField txtClienteElegido;
     private javax.swing.JTextField txtCosto;
-    private javax.swing.JTextField txtDepartamento;
     private javax.swing.JTextField txtDestinatario;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtFecha;

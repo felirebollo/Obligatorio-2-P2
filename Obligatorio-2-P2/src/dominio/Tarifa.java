@@ -8,62 +8,74 @@ import java.nio.file.Paths;
 
 public class Tarifa implements Serializable {
 
-    private String zona;
-    private int precioCategoria1;
-    private int precioCategoria2;
-    private int precioCategoria3;
-    private int precioCategoria4;
-    private int valor;
+    private static String [][] tarifas = setTarifas();
     
     
-    public Tarifa(String departamento, int peso) {
-        
-        setValores(obtenerZona(departamento));
-        
-        if (peso < 1 ){valor = precioCategoria1;}
-        else {if (peso < 5 ){valor = precioCategoria2;}
-        else {if (peso < 10 ){valor = precioCategoria3;}
-        else{valor = precioCategoria4;}}}
-        
-        
-    }
-// SPLIT LO SAQUE DE CHATGPT, CREO QUE NO LO VIMOS EN CLASE
-public void setValores(String zona) {
-    String[] tarifas = leerArchivo();
-
-    for (int i = 0; i < tarifas.length; i++) {
-
-        if (tarifas[i].startsWith("" + zona.charAt(0))) {
-
-            int posicionNumeral = tarifas[i].indexOf('#');
-
-            String precios = tarifas[i].substring(posicionNumeral + 1);
-
-            String[] valores = precios.split(",");
-            System.out.println(tarifas[i]);
-            precioCategoria1 = Integer.parseInt(valores[0]);
-            precioCategoria2 = Integer.parseInt(valores[1]);
-            precioCategoria3 = Integer.parseInt(valores[2]);
-            precioCategoria4 = Integer.parseInt(valores[3]);
-            System.out.println(precioCategoria1);
-            System.out.println(precioCategoria2);
-            System.out.println(precioCategoria3);
-            System.out.println(precioCategoria4);
+    
+ 
+    
+ public static void imprimirMatriz(String[][] matriz) {
+    for (int i = 0; i < matriz.length; i++) {
+        for (int j = 0; j < matriz[i].length; j++) {
+            System.out.print(matriz[i][j] + " ");
         }
+        System.out.println();
     }
+}   
+ public static int valorActual (String departamento, int peso) 
+ {
+        int valorActual = 0;
+        String zona = ""+ obtenerZona(departamento).charAt(0);
+        int cat = 0;
+        
+        if (peso < 1 ){cat = 1;}
+        else {if (peso < 5 ){cat = 2;}
+        else {if (peso < 10 ){cat = 3;}
+        else{cat = 4;}}}
+        
+        
+        for (int i = 0 ; i < tarifas.length ; i ++)
+        {
+        
+          if (tarifas[i][0].equals(zona))
+          {
+            valorActual = Integer.parseInt(tarifas[i][cat]);
+          }
+       }
+        return valorActual;
+  }
+// SPLIT LO SAQUE DE CHATGPT, CREO QUE NO LO VIMOS EN CLASE
+public static String [][] setTarifas() {
+    
+    String [][] tarifas = new String [4][5];
+    String [] datosPorZona = leerArchivo();
+    String [] aux = new String [4];
+    
+    for (int i = 0; i < tarifas.length; i++) {
+        
+          int posNumeral = datosPorZona[i].indexOf('#');  
+          aux = datosPorZona[i].substring(posNumeral + 1).split(",");
+          
+          tarifas [i][0] = ""+datosPorZona[i].charAt(0);
+          tarifas [i][1] = aux [0];
+          tarifas [i][2] = aux [1];
+          tarifas [i][3] = aux [2];
+          tarifas [i][4] = aux [3];
+      }
+    return tarifas;
 }
     
     
-public String[] leerArchivo() {
-    String[] tarifas = new String[4];
+public static String[] leerArchivo() {
+    String[] datosPorZona = new String[4];
 
     try {
         Scanner arch = new Scanner(Paths.get("archivo.txt"));
 
         int contador = 0;
 
-        while (arch.hasNextLine() && contador < tarifas.length) {
-            tarifas[contador] = arch.nextLine();
+        while (arch.hasNextLine()) {
+            datosPorZona[contador] = arch.nextLine();
             contador++;
         }
 
@@ -73,10 +85,10 @@ public String[] leerArchivo() {
         System.out.println("Error al leer el archivo");
     }
 
-    return tarifas;
+    return datosPorZona;
 }
     
-  public String obtenerZona(String departamento) {
+  public static String obtenerZona(String departamento) {
     String zona = "";
 
     departamento = departamento.trim();
@@ -118,21 +130,7 @@ public String[] leerArchivo() {
     return zona;
 }
     
-    public int getValor (){
-     return valor;
-    }
-
-    public String getZona() {
-        return zona;
-    }
-
-    public void setZona(String zona) {
-        this.zona = zona;
-    }
-
+      
     
-    @Override
-    public String toString() {
-        return this.getZona();
-    }
+    
 }
