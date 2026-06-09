@@ -108,7 +108,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPaquetesActionPerformed
 
     private void btnConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultasActionPerformed
-        // TODO add your handling code here:
+        VentanaReportes ventana = new VentanaReportes(this.sistema);
+        ventana.setVisible(true);
     }//GEN-LAST:event_btnConsultasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
