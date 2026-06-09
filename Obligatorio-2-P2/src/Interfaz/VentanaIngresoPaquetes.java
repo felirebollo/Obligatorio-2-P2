@@ -59,11 +59,11 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
 
         jPanel1.setLayout(null);
         jPanel1.add(txtIdentificador);
-        txtIdentificador.setBounds(160, 20, 71, 22);
+        txtIdentificador.setBounds(180, 20, 71, 23);
 
         jLabel1.setText("Identificador del paquete");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(10, 20, 150, 16);
+        jLabel1.setBounds(10, 20, 150, 17);
 
         lstCliente.addListSelectionListener(this::lstClienteValueChanged);
         jScrollPane1.setViewportView(lstCliente);
@@ -74,57 +74,57 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
         txtClienteElegido.setEditable(false);
         txtClienteElegido.addActionListener(this::txtClienteElegidoActionPerformed);
         jPanel1.add(txtClienteElegido);
-        txtClienteElegido.setBounds(30, 70, 160, 22);
+        txtClienteElegido.setBounds(30, 70, 160, 23);
         jPanel1.add(txtFecha);
-        txtFecha.setBounds(360, 110, 90, 22);
+        txtFecha.setBounds(380, 110, 100, 23);
 
         jLabel2.setText("Fecha");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(310, 110, 31, 16);
+        jLabel2.setBounds(270, 110, 40, 17);
 
         jLabel3.setText("Nombre");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(310, 190, 50, 16);
+        jLabel3.setBounds(270, 190, 50, 17);
         jPanel1.add(txtDestinatario);
-        txtDestinatario.setBounds(360, 190, 90, 22);
+        txtDestinatario.setBounds(370, 190, 110, 23);
 
         jLabel4.setText("Dirección");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(300, 250, 60, 16);
+        jLabel4.setBounds(270, 250, 60, 17);
         jPanel1.add(txtDireccion);
-        txtDireccion.setBounds(360, 250, 90, 22);
+        txtDireccion.setBounds(370, 250, 110, 23);
 
         jLabel5.setText("Departamento");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(280, 220, 90, 16);
+        jLabel5.setBounds(270, 220, 90, 17);
 
         jLabel6.setText("Peso del paquete (gramos)");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(210, 80, 150, 16);
+        jLabel6.setBounds(210, 80, 170, 17);
         jPanel1.add(txtPeso);
-        txtPeso.setBounds(360, 80, 90, 22);
+        txtPeso.setBounds(380, 80, 100, 23);
 
         jLabel7.setText("DATOS DEL DESTINATARIO");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(290, 160, 150, 16);
+        jLabel7.setBounds(270, 160, 210, 17);
 
         btnCosto.setText("Calcular Costo");
         btnCosto.addActionListener(this::btnCostoActionPerformed);
         jPanel1.add(btnCosto);
-        btnCosto.setBounds(480, 80, 120, 23);
+        btnCosto.setBounds(510, 80, 140, 23);
 
         txtCosto.setEditable(false);
         jPanel1.add(txtCosto);
-        txtCosto.setBounds(480, 110, 120, 22);
+        txtCosto.setBounds(510, 110, 140, 23);
 
         btnConfirmar.setText("Confirmar\n ingreso");
         btnConfirmar.addActionListener(this::btnConfirmarActionPerformed);
         jPanel1.add(btnConfirmar);
-        btnConfirmar.setBounds(480, 190, 130, 80);
+        btnConfirmar.setBounds(510, 190, 140, 80);
 
         cbxDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Artigas", "Canelones", "Cerro Largo", "Colonia", "Durazno", "Flores", "Florida", "Lavalleja", "Maldonado", "Montevideo", "Paysandú", "Río Negro", "Rivera", "Rocha", "Salto", "San José", "Soriano", "Tacuarembó", "Treinta y Tres" }));
         jPanel1.add(cbxDepartamento);
-        cbxDepartamento.setBounds(360, 220, 105, 22);
+        cbxDepartamento.setBounds(370, 220, 110, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
