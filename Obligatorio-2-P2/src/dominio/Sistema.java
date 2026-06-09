@@ -262,9 +262,25 @@ public class Sistema extends Observable implements Serializable {
 
     public int getNumeroEnvio ()
     {
-        
        return this.envios.size()+1;
+    }
     
+       
+    public ArrayList<Paquete> getPaquetesPorZonaEstado (String zona, String estado)
+    {
+       ArrayList<Paquete> paquetesPorZona = new ArrayList<Paquete>();
+        
+      for (int i = 0; i < paquetes.size() ; i++)
+       {
+         if (Tarifa.obtenerZona(paquetes.get(i).getDepartamento()).equalsIgnoreCase(zona) && 
+                 paquetes.get(i).getEstado().equalsIgnoreCase(estado))
+         {
+             paquetesPorZona.add(paquetes.get(i))  ; 
+         }
+       
+       }
+        
+        return paquetesPorZona;
     
     }
 }

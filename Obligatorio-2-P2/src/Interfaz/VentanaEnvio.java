@@ -1,7 +1,10 @@
 package Interfaz;
 import dominio.*;
+import java.util.*;
+import javax.swing.JOptionPane;
 
-public class VentanaEnvio extends javax.swing.JFrame {
+
+public class VentanaEnvio extends javax.swing.JFrame implements Observer{
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaEnvio.class.getName());
     private Sistema sistema;
@@ -12,8 +15,16 @@ public class VentanaEnvio extends javax.swing.JFrame {
     public VentanaEnvio(Sistema unSistema) {
         initComponents();
         this.sistema = unSistema;
+        sistema.addObserver(this);
         objetoAPantalla();
     }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        objetoAPantalla();
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,15 +40,14 @@ public class VentanaEnvio extends javax.swing.JFrame {
         txtFecha = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstPendientes = new javax.swing.JList<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxZona = new javax.swing.JComboBox<>();
         txtZona = new javax.swing.JTextField();
         txtEnvio = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        lstFuncionarios = new javax.swing.JList<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        lstSeleccionados = new javax.swing.JList<>();
+        cbxFuncionarios = new javax.swing.JComboBox<>();
         txtFuncionario = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
-        btnQuitar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -48,6 +58,10 @@ public class VentanaEnvio extends javax.swing.JFrame {
         txtPrecio = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
+        btnConfirmar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtPesoKg = new javax.swing.JTextField();
+        btnQuitar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -64,11 +78,13 @@ public class VentanaEnvio extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(27, 207, 124, 160);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Norte", "Sur", "Este", "Oeste", " " }));
-        jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(18, 80, 72, 22);
+        cbxZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Norte", "Sur", "Este", "Oeste", " " }));
+        cbxZona.addActionListener(this::cbxZonaActionPerformed);
+        jPanel1.add(cbxZona);
+        cbxZona.setBounds(18, 80, 72, 22);
 
         txtZona.setEditable(false);
+        txtZona.addActionListener(this::txtZonaActionPerformed);
         jPanel1.add(txtZona);
         txtZona.setBounds(102, 80, 129, 22);
 
@@ -80,24 +96,22 @@ public class VentanaEnvio extends javax.swing.JFrame {
         jPanel1.add(jLabel2);
         jLabel2.setBounds(320, 10, 93, 16);
 
-        jPanel1.add(lstFuncionarios);
-        lstFuncionarios.setBounds(248, 207, 122, 158);
+        jPanel1.add(lstSeleccionados);
+        lstSeleccionados.setBounds(248, 207, 122, 158);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        jPanel1.add(jComboBox2);
-        jComboBox2.setBounds(18, 46, 72, 22);
+        cbxFuncionarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cbxFuncionarios.addActionListener(this::cbxFuncionariosActionPerformed);
+        jPanel1.add(cbxFuncionarios);
+        cbxFuncionarios.setBounds(18, 46, 72, 22);
 
         txtFuncionario.setEditable(false);
         jPanel1.add(txtFuncionario);
         txtFuncionario.setBounds(102, 46, 129, 22);
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(this::btnAgregarActionPerformed);
         jPanel1.add(btnAgregar);
         btnAgregar.setBounds(155, 244, 80, 23);
-
-        btnQuitar.setText("Quitar");
-        jPanel1.add(btnQuitar);
-        btnQuitar.setBounds(163, 273, 72, 23);
 
         jLabel3.setText("Paquetes pendientes");
         jPanel1.add(jLabel3);
@@ -109,44 +123,62 @@ public class VentanaEnvio extends javax.swing.JFrame {
 
         jLabel5.setText("Número de paquetes");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(281, 90, 120, 16);
+        jLabel5.setBounds(280, 60, 120, 16);
 
         txtCantidad.setEditable(false);
         txtCantidad.addActionListener(this::txtCantidadActionPerformed);
         jPanel1.add(txtCantidad);
-        txtCantidad.setBounds(410, 90, 71, 22);
+        txtCantidad.setBounds(400, 60, 71, 22);
 
-        jLabel6.setText("Peso de los paquetes");
+        jLabel6.setText("Peso en gramos");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(280, 120, 120, 16);
+        jLabel6.setBounds(280, 90, 120, 16);
 
         txtPeso.setEditable(false);
         jPanel1.add(txtPeso);
-        txtPeso.setBounds(410, 120, 71, 22);
+        txtPeso.setBounds(400, 90, 71, 22);
 
         jLabel7.setText("Precio del envio");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(310, 150, 93, 16);
+        jLabel7.setBounds(300, 150, 93, 16);
 
         txtPrecio.setEditable(false);
         jPanel1.add(txtPrecio);
-        txtPrecio.setBounds(410, 150, 71, 22);
+        txtPrecio.setBounds(400, 150, 71, 22);
         jPanel1.add(jSeparator1);
-        jSeparator1.setBounds(400, 180, 50, 10);
+        jSeparator1.setBounds(400, 180, 0, 3);
 
         jLabel8.setText("Datos del envio");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(360, 60, 90, 16);
+        jLabel8.setBounds(360, 40, 90, 16);
+
+        btnConfirmar.setText("Confirmar Envio");
+        btnConfirmar.addActionListener(this::btnConfirmarActionPerformed);
+        jPanel1.add(btnConfirmar);
+        btnConfirmar.setBounds(420, 270, 130, 23);
+
+        jLabel9.setText("Peso en kg");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(300, 120, 90, 16);
+
+        txtPesoKg.setEditable(false);
+        jPanel1.add(txtPesoKg);
+        txtPesoKg.setBounds(400, 120, 71, 22);
+
+        btnQuitar.setText("Quitar");
+        btnQuitar.addActionListener(this::btnQuitarActionPerformed);
+        jPanel1.add(btnQuitar);
+        btnQuitar.setBounds(163, 273, 72, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
         );
 
         pack();
@@ -156,6 +188,53 @@ public class VentanaEnvio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCantidadActionPerformed
 
+    private void txtZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtZonaActionPerformed
+ 
+       
+    }//GEN-LAST:event_txtZonaActionPerformed
+
+    private void cbxZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxZonaActionPerformed
+        txtZona.setText(""+cbxZona.getSelectedItem());
+        objetoAPantalla();
+    }//GEN-LAST:event_cbxZonaActionPerformed
+
+    private void cbxFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFuncionariosActionPerformed
+        txtFuncionario.setText(""+cbxFuncionarios.getSelectedItem());
+       
+    }//GEN-LAST:event_cbxFuncionariosActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+       
+      Paquete paquete = (Paquete) lstPendientes.getSelectedValue();
+      if (paquete != null) {
+        paquete.setEstado("Seleccionado");
+        objetoAPantalla();
+    } else {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar un paquete");
+      }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+       Paquete paquete = (Paquete) lstSeleccionados.getSelectedValue();
+       if (paquete != null) 
+       {
+           paquete.setEstado("Enviado");
+           objetoAPantalla();
+       }
+       else { JOptionPane.showMessageDialog(this, "Debe seleccionar un paquete");}
+       
+    }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
+        Paquete paquete = (Paquete) lstSeleccionados.getSelectedValue();
+       if (paquete != null) 
+       {
+           paquete.setEstado("Pendiente");
+           objetoAPantalla();
+       }
+       else { JOptionPane.showMessageDialog(this, "Debe seleccionar un paquete");}
+    }//GEN-LAST:event_btnQuitarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -163,9 +242,10 @@ public class VentanaEnvio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnQuitar;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> cbxFuncionarios;
+    private javax.swing.JComboBox<String> cbxZona;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -174,24 +254,51 @@ public class VentanaEnvio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JList<String> lstFuncionarios;
-    private javax.swing.JList<String> lstPendientes;
+    private javax.swing.JList<Object> lstPendientes;
+    private javax.swing.JList<Object> lstSeleccionados;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtEnvio;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtFuncionario;
     private javax.swing.JTextField txtPeso;
+    private javax.swing.JTextField txtPesoKg;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtZona;
     // End of variables declaration//GEN-END:variables
 
-
+  
+    
+    
   public void objetoAPantalla()
    {
      txtEnvio.setText(""+ sistema.getNumeroEnvio());
+     lstPendientes.setListData((sistema.getPaquetesPorZonaEstado(txtZona.getText(), "Pendiente")).toArray());
+     lstSeleccionados.setListData((sistema.getPaquetesPorZonaEstado(txtZona.getText(), "Seleccionado")).toArray());
+     
+     cbxFuncionarios.removeAllItems();
+     for (Funcionario funcionario : sistema.getFuncionarios()) { cbxFuncionarios.addItem(""+ funcionario);}
+     
+     txtCantidad.setText(""+lstSeleccionados.getModel().getSize());
+     
+     int peso = 0;
+     for (Paquete paquete : sistema.getPaquetes())
+     {if (paquete.getEstado().equalsIgnoreCase("Seleccionado") && Tarifa.obtenerZona(paquete.getDepartamento()).equalsIgnoreCase(txtZona.getText()))
+     {peso = peso + paquete.getPesoGramos();}};
+     txtPeso.setText(""+peso);
+     float pesoKg = peso /1000;
+     txtPesoKg.setText("" + pesoKg);
+     
+     int precio = 0;
+     for (Paquete paquete : sistema.getPaquetes())
+     {if (paquete.getEstado().equalsIgnoreCase("Seleccionado") && Tarifa.obtenerZona(paquete.getDepartamento()).equalsIgnoreCase(txtZona.getText()))
+     {precio = precio + paquete.getPrecio();}};
+     txtPrecio.setText(""+precio);
+
+     
    
    
    }

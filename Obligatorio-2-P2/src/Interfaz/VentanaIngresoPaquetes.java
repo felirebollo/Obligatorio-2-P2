@@ -72,6 +72,7 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
         jScrollPane1.setBounds(30, 100, 160, 170);
 
         txtClienteElegido.setEditable(false);
+        txtClienteElegido.addActionListener(this::txtClienteElegidoActionPerformed);
         jPanel1.add(txtClienteElegido);
         txtClienteElegido.setBounds(30, 70, 160, 22);
         jPanel1.add(txtFecha);
@@ -152,7 +153,9 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
         boolean validaPeso = false;
         
         if (nombreDest.length()!=0 && direccionDest.length()!=0 && identificador.length()!=0  && cliente != null)
-        {
+        { 
+         if(!sistema.existeIdPaquete(identificador))
+         {
           try {
         peso = Integer.parseInt(txtPeso.getText());
         precioFinal = Tarifa.valorActual(departamento, peso);
@@ -176,7 +179,7 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
                   }
              catch (NumberFormatException e){JOptionPane.showMessageDialog(this, "Formato de fecha no válido");}
            } else {JOptionPane.showMessageDialog(this, "Formato de fecha no válido (dd/mm/aaaa)");}
-        }  
+        }  } else {JOptionPane.showMessageDialog(this, "Debe ingresar un Id de paquete no existente");}
         } else {JOptionPane.showMessageDialog(this, "Debe completar todos los campos");}
         
     }//GEN-LAST:event_btnConfirmarActionPerformed
@@ -204,6 +207,10 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
         
         
     }//GEN-LAST:event_btnCostoActionPerformed
+
+    private void txtClienteElegidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteElegidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClienteElegidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,8 +243,9 @@ public class VentanaIngresoPaquetes extends javax.swing.JFrame implements Observ
 
   public void objetoAPantalla (){
       
+       
        lstCliente.setListData(sistema.getClientes().toArray());
-        txtClienteElegido.setText("");
+       txtClienteElegido.setText("");
 
 
 

@@ -28,9 +28,9 @@ public class Tarifa implements Serializable {
         String zona = ""+ obtenerZona(departamento).charAt(0);
         int cat = 0;
         
-        if (peso < 1 ){cat = 1;}
-        else {if (peso < 5 ){cat = 2;}
-        else {if (peso < 10 ){cat = 3;}
+        if (peso < 1000 ){cat = 1;}
+        else {if (peso < 5000 ){cat = 2;}
+        else {if (peso < 10000 ){cat = 3;}
         else{cat = 4;}}}
         
         

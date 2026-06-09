@@ -16,7 +16,7 @@ public class Envio implements Serializable {
     private String fecha;
     private String zona;
     private Funcionario funcionario;
-    private ArrayList<Paquete> paquetes;
+    private ArrayList<Paquete> envios;
     private boolean recepcionRegistrada;
 
     public int getNumero() {
@@ -52,11 +52,14 @@ public class Envio implements Serializable {
     }
 
     public ArrayList<Paquete> getPaquetes() {
-        return paquetes;
+        return envios;
     }
+    
+    public void agregarEnvio (Paquete paquete)
+    {envios.add(paquete) ;}
 
     public void setPaquetes(ArrayList<Paquete> paquetes) {
-        this.paquetes = paquetes;
+        this.envios = paquetes;
     }
 
     public boolean isRecepcionRegistrada() {
