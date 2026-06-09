@@ -4,19 +4,22 @@
  */
 package Interfaz;
 
+import dominio.Sistema;
+
 /**
  *
  * @author felipe
  */
 public class VentanaLog extends javax.swing.JFrame {
-    
+    private Sistema sistema;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaLog.class.getName());
 
     /**
      * Creates new form VentanaLog
      */
-    public VentanaLog() {
+    public VentanaLog(Sistema unSistema) {
         initComponents();
+        this.sistema = unSistema;
     }
 
     /**
@@ -28,47 +31,55 @@ public class VentanaLog extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        btnBorrar = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtLog = new javax.swing.JTextArea();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnBorrar.setText("Borrar");
+
+        btnVolver.setText("Volver");
+
+        txtLog.setColumns(20);
+        txtLog.setRows(5);
+        jScrollPane2.setViewportView(txtLog);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVolver, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnBorrar, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(btnBorrar)
+                .addGap(18, 18, 18)
+                .addComponent(btnVolver)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VentanaLog().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnVolver;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea txtLog;
     // End of variables declaration//GEN-END:variables
 }
