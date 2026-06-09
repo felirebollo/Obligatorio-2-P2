@@ -16,8 +16,17 @@ public class Envio implements Serializable {
     private String fecha;
     private String zona;
     private Funcionario funcionario;
-    private ArrayList<Paquete> envios;
+    private ArrayList<Paquete> paquetes;
     private boolean recepcionRegistrada;
+    
+      public Envio(int numero, String fecha, String zona, Funcionario funcionario, ArrayList<Paquete> paquetes, boolean recepcionRegistrada) {
+        this.setNumero(numero);
+        this.setFecha(fecha);
+        this.setZona(zona);
+        this.setFuncionario(funcionario);
+        this.setPaquetes(paquetes);
+        this.setRecepcionRegistrada(recepcionRegistrada);
+    }
 
     public int getNumero() {
         return numero;
@@ -52,15 +61,15 @@ public class Envio implements Serializable {
     }
 
     public ArrayList<Paquete> getPaquetes() {
-        return envios;
+        return paquetes;
     }
     
-    public void agregarEnvio (Paquete paquete)
-    {envios.add(paquete) ;}
-
     public void setPaquetes(ArrayList<Paquete> paquetes) {
-        this.envios = paquetes;
+        this.paquetes = paquetes;
     }
+    
+    public void agregarPaquetes (Paquete paquete)
+    {paquetes.add(paquete);}
 
     public boolean isRecepcionRegistrada() {
         return recepcionRegistrada;
@@ -70,14 +79,7 @@ public class Envio implements Serializable {
         this.recepcionRegistrada = recepcionRegistrada;
     }
 
-    public Envio(int numero, String fecha, String zona, Funcionario funcionario, ArrayList<Paquete> paquetes, boolean recepcionRegistrada) {
-        this.setNumero(numero);
-        this.setFecha(fecha);
-        this.setZona(zona);
-        this.setFuncionario(funcionario);
-        this.setPaquetes(paquetes);
-        this.setRecepcionRegistrada(recepcionRegistrada);
-    }
+  
 
     @Override
     public String toString() {

@@ -120,7 +120,7 @@ public class VentanaCliente extends javax.swing.JFrame implements Observer{
        String celular = txtCelular.getText();
        String correo = txtCorreo.getText();
        
-       if (!this.sistema.existeNombre(nombre) && this.sistema.correoValido(correo)){
+       if (!this.sistema.existeNombre(nombre) && this.sistema.correoValido(correo) && !nombre.equals("")){
        
        Cliente cliente = new Cliente (nombre, celular, correo);
        this.sistema.agregarCliente(cliente);} 

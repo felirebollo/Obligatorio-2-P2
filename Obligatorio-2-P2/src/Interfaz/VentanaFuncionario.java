@@ -199,7 +199,7 @@ public class VentanaFuncionario extends javax.swing.JFrame implements Observer{
               numeroFuncionario = Integer.parseInt(txtNumFuncionario.getText());
               añoIngreso = Integer.parseInt(txtAños.getText());
          ;
-        if (!this.sistema.existeNombre(nombre)) {
+        if (!this.sistema.existeNombre(nombre) && !nombre.equals("")) {
 
             Funcionario funcionario = new Funcionario(nombre, celular, numeroFuncionario, añoIngreso);
             this.sistema.agregarFuncionario(funcionario);

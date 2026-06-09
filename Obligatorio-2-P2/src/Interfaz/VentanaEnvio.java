@@ -215,13 +215,44 @@ public class VentanaEnvio extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-       Paquete paquete = (Paquete) lstSeleccionados.getSelectedValue();
-       if (paquete != null) 
-       {
-           paquete.setEstado("Enviado");
-           objetoAPantalla();
-       }
-       else { JOptionPane.showMessageDialog(this, "Debe seleccionar un paquete");}
+     
+      int numeroEnvio = Integer.parseInt(txtEnvio.getText());
+      String fecha = txtFecha.getText();
+      String zona = txtZona.getText();
+      Funcionario funcionario = (Funcionario) cbxFuncionarios.getSelectedItem();
+      ArrayList<Paquete> paquetes = new ArrayList<>();
+      
+      
+         
+      
+      if (!zona.equals("") && funcionario != null && lstSeleccionados.getModel().getSize()>0)
+      {
+      if (fecha.length() == 10 && fecha.charAt(2) == '/' && fecha.charAt(5) == '/' )   
+          {
+             try 
+             {
+
+                   Integer.parseInt(fecha.substring(0,2));
+                   Integer.parseInt(fecha.substring(3,5));
+                   Integer.parseInt(fecha.substring(6,10));
+                   Envio envio = new Envio(numeroEnvio, fecha, zona, funcionario,paquetes, false);
+                   
+                   for (Paquete paquete : sistema.getPaquetes())
+                   if (paquete.getEstado().equalsIgnoreCase("Seleccionado") && Tarifa.obtenerZona(paquete.getDepartamento()).equalsIgnoreCase(txtZona.getText()))
+                   {
+                       paquete.setEstado("Enviado");
+                       paquetes.add(paquete);
+                       this.sistema.agregarEnvio(envio);
+                   }
+                  JOptionPane.showMessageDialog(this, "Los paquetes han sido enviados");
+
+             }    
+             catch (NumberFormatException e){JOptionPane.showMessageDialog(this, "Formato de fecha no válido");}
+          }  else {JOptionPane.showMessageDialog(this, "Formato de fecha no válido");}
+     } else {JOptionPane.showMessageDialog(this, "Existen campos vacios");}
+    
+    
+     objetoAPantalla();
        
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
@@ -244,7 +275,7 @@ public class VentanaEnvio extends javax.swing.JFrame implements Observer{
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnQuitar;
-    private javax.swing.JComboBox<String> cbxFuncionarios;
+    private javax.swing.JComboBox<Object> cbxFuncionarios;
     private javax.swing.JComboBox<String> cbxZona;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -280,7 +311,7 @@ public class VentanaEnvio extends javax.swing.JFrame implements Observer{
      lstSeleccionados.setListData((sistema.getPaquetesPorZonaEstado(txtZona.getText(), "Seleccionado")).toArray());
      
      cbxFuncionarios.removeAllItems();
-     for (Funcionario funcionario : sistema.getFuncionarios()) { cbxFuncionarios.addItem(""+ funcionario);}
+     for (Funcionario funcionario : sistema.getFuncionarios()) { cbxFuncionarios.addItem(funcionario);}
      
      txtCantidad.setText(""+lstSeleccionados.getModel().getSize());
      
@@ -289,7 +320,7 @@ public class VentanaEnvio extends javax.swing.JFrame implements Observer{
      {if (paquete.getEstado().equalsIgnoreCase("Seleccionado") && Tarifa.obtenerZona(paquete.getDepartamento()).equalsIgnoreCase(txtZona.getText()))
      {peso = peso + paquete.getPesoGramos();}};
      txtPeso.setText(""+peso);
-     float pesoKg = peso /1000;
+     float pesoKg = peso /1000f;
      txtPesoKg.setText("" + pesoKg);
      
      int precio = 0;
