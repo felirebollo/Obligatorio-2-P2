@@ -4,19 +4,27 @@
  */
 package Interfaz;
 
+import dominio.Cliente;
+import dominio.Paquete;
+import dominio.Sistema;
+
 /**
  *
  * @author felipe
  */
 public class VentanaConsultaCliente extends javax.swing.JFrame {
     
+    private Sistema sistema;
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaConsultaCliente.class.getName());
 
     /**
      * Creates new form VentanaConsultaCliente
      */
-    public VentanaConsultaCliente() {
+    public VentanaConsultaCliente(Sistema unSistema) {
         initComponents();
+        this.sistema = unSistema;
+        cargarClientes();
     }
 
     /**
@@ -28,47 +36,149 @@ public class VentanaConsultaCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstClientes = new javax.swing.JList<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        lblPendientes = new javax.swing.JTextField();
+        lblEnviados = new javax.swing.JTextField();
+        lblRecibidos = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lstClientes.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = {  };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        lstClientes.addListSelectionListener(this::lstClientesValueChanged);
+        jScrollPane1.setViewportView(lstClientes);
+
+        jLabel2.setText("Lista clientes:");
+
+        jLabel3.setText("Pendientes:");
+
+        jLabel4.setText("Enviados:");
+
+        jLabel1.setText("Recibidos:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblRecibidos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                        .addComponent(lblEnviados, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblPendientes, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addContainerGap(279, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblPendientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEnviados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(lblRecibidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void lstClientesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClientesValueChanged
+        String clienteSeleccionado = lstClientes.getSelectedValue();
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VentanaConsultaCliente().setVisible(true));
-    }
+        if (clienteSeleccionado != null) {
+
+            int pendientes = 0;
+            int enviados = 0;
+            int recibidos = 0;
+
+            int i = 0;
+
+            while (i < this.sistema.getPaquetes().size()) {
+
+                Paquete paquete = this.sistema.getPaquetes().get(i);
+
+                if (paquete.getCliente().getNombre().equals(clienteSeleccionado)) {
+
+                    if (paquete.getEstado().equalsIgnoreCase("Pendiente")) {
+                        pendientes = pendientes + 1;
+                    } else {
+                        if (paquete.getEstado().equalsIgnoreCase("Enviado")) {
+                            enviados = enviados + 1;
+                        } else {
+                            if (paquete.getEstado().equalsIgnoreCase("Recibido")) {
+                                recibidos = recibidos + 1;
+                            }
+                        }
+                    }
+                }
+
+                i = i + 1;
+            }
+
+            lblPendientes.setText("" + pendientes);
+            lblEnviados.setText("" + enviados);
+            lblRecibidos.setText("" + recibidos);
+        }
+    }//GEN-LAST:event_lstClientesValueChanged
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField lblEnviados;
+    private javax.swing.JTextField lblPendientes;
+    private javax.swing.JTextField lblRecibidos;
+    private javax.swing.JList<String> lstClientes;
     // End of variables declaration//GEN-END:variables
+
+    public void cargarClientes() {
+
+        String[] clientes = new String[this.sistema.getClientes().size()];
+
+        int i = 0;
+
+        while (i < this.sistema.getClientes().size()) {
+            clientes[i] = this.sistema.getClientes().get(i).getNombre();
+            i = i + 1;
+        }
+
+        lstClientes.setListData(clientes);
+    }
 }
