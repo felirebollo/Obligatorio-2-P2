@@ -4,6 +4,7 @@
  */
 package Interfaz;
 
+import dominio.Persistencia;
 import dominio.Sistema;
 
 /**
@@ -53,6 +54,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnConsultas.addActionListener(this::btnConsultasActionPerformed);
 
         btnMenuPrincipalSalir.setText("Salir");
+        btnMenuPrincipalSalir.addActionListener(this::btnMenuPrincipalSalirActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,6 +113,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         VentanaReportes ventana = new VentanaReportes(this.sistema);
         ventana.setVisible(true);
     }//GEN-LAST:event_btnConsultasActionPerformed
+
+    private void btnMenuPrincipalSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalSalirActionPerformed
+        Persistencia.guardarSistema(this.sistema);
+
+        this.dispose();
+    }//GEN-LAST:event_btnMenuPrincipalSalirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCliente;
