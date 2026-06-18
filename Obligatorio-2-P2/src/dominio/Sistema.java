@@ -309,6 +309,18 @@ public class Sistema extends Observable implements Serializable {
     {
         ArrayList<String> departamentos = new ArrayList<String>();
 
+        ArrayList<Paquete> lista = getPaquetesPorZonaEstado(zona, estado);
+
+        for (int i = 0; i < lista.size(); i++)
+        {
+            String departamento = lista.get(i).getDepartamento();
+
+            if (!departamentos.contains(departamento))
+            {
+                departamentos.add(departamento);
+            }
+        }
+
         return departamentos;
     }
 }
