@@ -283,4 +283,32 @@ public class Sistema extends Observable implements Serializable {
         return paquetesPorZona;
     
     }
+    public int getClientesDiferentesDePaquetesPorEstadoyZona(String zona, String estado)
+    {
+        int cantidad = 0;
+
+        ArrayList<Paquete> lista = getPaquetesPorZonaEstado(zona, estado);
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+
+        for (int i = 0; i < lista.size(); i++)
+        {
+            Cliente cliente = lista.get(i).getCliente();
+
+            if (!clientes.contains(cliente))
+            {
+                clientes.add(cliente);
+            }
+        }
+
+        cantidad = clientes.size();
+
+        return cantidad;
+    }
+    
+    public ArrayList<String> getDepartamentosDePaquetesPorZonayEstado(String zona, String estado)
+    {
+        ArrayList<String> departamentos = new ArrayList<String>();
+
+        return departamentos;
+    }
 }
