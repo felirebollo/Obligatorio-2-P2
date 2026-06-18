@@ -1,28 +1,34 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Interfaz;
+import dominio.*;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.util.*;
 
-import dominio.Sistema;
-
-/**
- *
- * @author felipe
- */
-public class VentanaPaquetePorEstado extends javax.swing.JFrame {
-    private Sistema sistema;
+public class VentanaPaquetePorEstado extends javax.swing.JFrame implements Observer{
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaPaquetePorEstado.class.getName());
-
+    private Sistema sistema;
     /**
      * Creates new form VentanaPaquetePorEstado
      */
     public VentanaPaquetePorEstado(Sistema unSistema) {
         initComponents();
-        this.sistema = unSistema;
+        sistema = unSistema;
+        sistema.addObserver(this);
+        objetoAPantalla();
+        getContentPane().setLayout(new java.awt.FlowLayout());
+        getContentPane().add(crearPanelMapa());
+        pack();
+
+
+        
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+      objetoAPantalla();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,23 +38,201 @@ public class VentanaPaquetePorEstado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbReporte = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        txtCantidadClientes = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstDepartamentos = new javax.swing.JList<>();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tbReporte.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbReporteMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tbReporte);
+
+        jLabel1.setText("Cantidad de Clientes");
+
+        txtCantidadClientes.setEditable(false);
+
+        jLabel2.setText("Departamentos");
+
+        lstDepartamentos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(lstDepartamentos);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 12, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(26, 26, 26)
+                        .addComponent(txtCantidadClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtCantidadClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(215, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tbReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbReporteMouseClicked
+        int row = tbReporte.getSelectedRow();
+        int col = tbReporte.getSelectedColumn();
+        
+        String zona = tbReporte.getValueAt(row,0)+"";
+        String estado = tbReporte.getColumnName(col);
+      
+        
+        int cantidad = sistema.getClientesDiferentesDePaquetesPorEstadoyZona(zona, estado);
+        
+        txtCantidadClientes.setText(cantidad+"");
+        
+        ArrayList<String> departamentos = sistema.getDepartamentosDePaquetesPorZonayEstado(zona, estado);
+
+        lstDepartamentos.setListData(departamentos.toArray(new String[0]));
+    }//GEN-LAST:event_tbReporteMouseClicked
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> lstDepartamentos;
+    private javax.swing.JTable tbReporte;
+    private javax.swing.JTextField txtCantidadClientes;
     // End of variables declaration//GEN-END:variables
+
+    
+    public void objetoAPantalla(){
+ 
+    txtCantidadClientes.setText("");
+    lstDepartamentos.setListData(new String[0]); 
+
+    String[] columnas = {"Zona", "Pendiente", "Enviado", "Recibido", "Total"};
+
+     Object[][] datos = {
+         {"Norte", 0, 0, 0, 0},
+         {"Oeste", 0, 0, 0, 0},
+         {"Sur", 0, 0, 0, 0},
+         {"Este", 0, 0, 0, 0}
+     };
+
+             for (Object[] dato : datos) {
+                 for (int j = 1; j < datos[0].length-1; j++) {
+                     String zona = dato[0].toString();
+                     dato[j] = sistema.getPaquetesPorZonaEstado(zona, columnas[j]).size();
+                 }
+             }
+
+     tbReporte.setModel(new javax.swing.table.DefaultTableModel(datos, columnas));
+     tbReporte.setDefaultEditor(Object.class, null);
+     centrarCeldas();
+
+     }
+
+     //NOTA: Esto pedimos ayuda a chatGPT
+
+     public void centrarCeldas() {
+         DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
+         centrado.setHorizontalAlignment(SwingConstants.CENTER);
+
+         for (int i = 0; i < tbReporte.getColumnCount(); i++) {
+             tbReporte.getColumnModel().getColumn(i).setCellRenderer(centrado);
+
+         }
+     }
+     private javax.swing.JPanel crearPanelMapa() {
+            java.net.URL imgURL = getClass().getResource("/Interfaz/mapa-uruguay-web.png");
+            java.awt.Image img = new javax.swing.ImageIcon(imgURL).getImage().getScaledInstance(300, 400, java.awt.Image.SCALE_SMOOTH);
+            javax.swing.JPanel panelMapa = new javax.swing.JPanel(null);
+            panelMapa.setPreferredSize(new java.awt.Dimension(300, 400));
+            javax.swing.JLabel lblImagen = new javax.swing.JLabel(new javax.swing.ImageIcon(img));
+            lblImagen.setBounds(0, 0, 300, 400);
+            panelMapa.add(lblImagen);
+
+            String[] zonas = {"Norte", "Oeste", "Este", "Sur"};
+            int[] posX = {110, 30, 190, 110};
+            int[] posY = {80, 180, 180, 340};
+            for (int i = 0; i < zonas.length; i++) {
+                String nombre = zonas[i];
+                javax.swing.JLabel lblZona = new javax.swing.JLabel(nombre);
+                lblZona.setOpaque(true);
+                lblZona.setBackground(java.awt.Color.YELLOW);
+                lblZona.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+                lblZona.setBounds(posX[i], posY[i], 70, 22);
+                lblZona.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                int pendiente = sistema.getPaquetesPorZonaEstado(nombre, "Pendiente").size();
+                int enviado = sistema.getPaquetesPorZonaEstado(nombre, "Enviado").size();
+                int recibido = sistema.getPaquetesPorZonaEstado(nombre, "Recibido").size();
+                String texto = "<html>Pendiente: " + pendiente
+                        + "<br>Enviado: " + enviado
+                        + "<br>Recibido: " + recibido + "</html>";
+                lblZona.setToolTipText(texto);
+                panelMapa.add(lblZona);
+            }
+            panelMapa.setComponentZOrder(lblImagen, panelMapa.getComponentCount() - 1);
+            return panelMapa;
+    }
+
 }
