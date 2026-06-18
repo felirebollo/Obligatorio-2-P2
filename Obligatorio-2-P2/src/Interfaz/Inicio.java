@@ -4,7 +4,10 @@
  */
 package Interfaz;
 
+import dominio.Persistencia;
 import dominio.Sistema;
+import java.io.FileNotFoundException;
+import java.util.Formatter;
 
 /**
  *
@@ -97,10 +100,26 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_botonUltimaEjecuActionPerformed
 
     private void botonInicioAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInicioAceptarActionPerformed
+        if (botonUltimaEjecu.isSelected()) {
+            this.unSistema = Persistencia.cargarSistema();
+        } else {
+            this.unSistema = new Sistema();
+        }
         MenuPrincipal ventana = new MenuPrincipal(this.unSistema);
         ventana.setVisible(true);
-
+        
+        if(botonSistemaNuevo.isSelected())
+        {
+          try {
+        Formatter arch = new Formatter("logs.txt");
+        arch.close();
+              } 
+        catch (FileNotFoundException e) {System.out.println("No se pudo crear el archivo.");}
+        
+        }
+         
         this.dispose();
+      
     }//GEN-LAST:event_botonInicioAceptarActionPerformed
 
     private void botonSistemaNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSistemaNuevoActionPerformed
